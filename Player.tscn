@@ -2,12 +2,10 @@
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Reticle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://PickupArea.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 12.0
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 24.0
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -17,12 +15,6 @@ shape = SubResource( 1 )
 
 [node name="Reticle" parent="." instance=ExtResource( 2 )]
 
-[node name="PickupArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
-self_modulate = Color( 1, 1, 1, 0.172549 )
-shape = SubResource( 2 )
-
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -8.0
 margin_top = -16.0
@@ -31,3 +23,10 @@ margin_bottom = 16.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PickupArea" parent="." instance=ExtResource( 3 )]
+
+[node name="CollisionShape2D" parent="PickupArea" index="0"]
+scale = Vector2( 1.5, 1.5 )
+
+[editable path="PickupArea"]

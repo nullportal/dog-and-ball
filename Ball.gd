@@ -22,6 +22,7 @@ var start_position = Vector2.ZERO
 var velocity = Vector2.ZERO
 var state = IDLE
 var pickupable = null
+var can_pick_up = ['Player', 'Dog']
 
 func _physics_process(delta):
 	if velocity == Vector2.ZERO:
@@ -59,7 +60,6 @@ func throw(aim_vec):
 		ACCELERATION
 	)
 
-
 func _on_PickupArea_area_entered(area):
-	if area.get_parent().name == 'Player' && pickupable:
+	if area.get_parent().name in self.can_pick_up && self.pickupable:
 		emit_signal('BALL_PICKED_UP', self, area.get_parent())

@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal BALL_THROWN(from, direction)
+signal COMMAND(command_name, context)
 
 export var ACCELERATION = 500
 export var MAX_SPEED = 128
@@ -13,6 +14,8 @@ var velocity = Vector2.ZERO
 var aim_vec = Vector2.ZERO
 
 onready var reticle = $Reticle
+onready var pickupArea = $PickupArea
+onready var dog = get_node('/root/Game/World/Dog')
 
 func _ready():
 	pass
@@ -23,6 +26,13 @@ func _physics_process(delta):
 		if holding_ball:
 			emit_signal('BALL_THROWN', self.global_position, aim_vec)
 			holding_ball = false
+		else:
+			if pickupArea.overlaps_area(dog.pickupArea):
+				print('Trying to get item from dog...')
+				emit_signal('COMMAND', 'give', 'Ball')
+			else:
+				print('Trying to get dog to retrieve ball...')
+				emit_signal('COMMAND', 'retrieve', 'Ball')
 
 	match state:
 		MOVE:
@@ -47,3 +57,8 @@ func move_state(delta):
 			FRICTION * delta
 		)
 	velocity = move_and_slide(velocity)
+
+func take(item_name):
+	print('Player is taking ', item_name)
+	if item_name == 'Ball':
+		self.holding_ball = true

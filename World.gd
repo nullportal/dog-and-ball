@@ -14,3 +14,4 @@ func ball_thrown(from, direction):
 func ball_picked_up(ball, by):
 	by.holding_ball = true
 	ball.queue_free()
+	print(by.name, ' picked up ball')
