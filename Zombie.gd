@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+export var HEALTH_POINTS = 10
 export var MAX_SPEED = 16
 
 enum {

@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal GIVE_UP(item_name, to_name)
 
 export var MAX_SPEED = 128
+export var HEALTH_POINTS = 100
 
 enum {
 	FOLLOW,
@@ -43,6 +44,8 @@ func find_focus():
 		if node.name == 'Player':
 			if node.holding_ball:
 				return node
+		if node.is_in_group('Enemies'):
+			self.attack(node)
 	return self.focus
 
 func follow(target):
@@ -60,6 +63,8 @@ func command(command_name, context):
 		give(context)
 	if command_name == 'retrieve':
 		retrieve(context)
+	if command_name == 'attack':
+		attack(context)
 
 func give(item_name):
 	emit_signal('GIVE_UP', item_name)
@@ -68,3 +73,6 @@ func give(item_name):
 func retrieve(item):
 	print(self.name, ' is trying to retrieve ', item)
 	self.focus = player
+
+func attack(target):
+	print('attacking ', target.name)

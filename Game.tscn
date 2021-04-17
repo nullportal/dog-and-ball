@@ -21,9 +21,7 @@ position = Vector2( 88, 208 )
 [node name="Dog" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 152, 104 )
 
-[node name="Zombies" type="YSort" parent="World"]
-
-[node name="Zombie" parent="World/Zombies" instance=ExtResource( 5 )]
+[node name="Zombie" parent="World" instance=ExtResource( 5 )]
 position = Vector2( 384, 128 )
 
 [editable path="World/Player"]

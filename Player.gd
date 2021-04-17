@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal BALL_THROWN(from, direction)
 signal COMMAND(command_name, context)
 
+export var HEALTH_POINTS = 10
 export var ACCELERATION = 500
 export var MAX_SPEED = 128
 export var FRICTION = 800
@@ -15,6 +16,7 @@ var aim_vec = Vector2.ZERO
 
 onready var reticle = $Reticle
 onready var pickupArea = $PickupArea
+onready var health = $Health
 onready var dog = get_node('/root/Game/World/Dog')
 
 func _ready():
