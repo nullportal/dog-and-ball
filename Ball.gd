@@ -12,8 +12,6 @@ export var ALLURE = 999
 
 enum {
 	THROWN,
-	RISING,  # TODO
-	FALLING, # TODO
 	ROLLING,
 	IDLE,
 }
@@ -21,15 +19,16 @@ enum {
 var start_position = Vector2.ZERO
 var velocity = Vector2.ZERO
 var state = IDLE
-var pickupable = null
+var pickupable = false
 var can_pick_up = ['Player', 'Dog']
+var bounces = 0
 
 func _physics_process(delta):
-	if velocity == Vector2.ZERO:
+	if velocity <= Vector2.ZERO:
 		state = IDLE
 	match state:
 		IDLE:
-			pass
+			pickupable = true
 		ROLLING:
 			rolling(delta)
 		THROWN:
@@ -37,7 +36,11 @@ func _physics_process(delta):
 
 	var collision = move_and_collide(velocity)
 	if collision:
-		assert(false, 'Ball collided with something! (TODO: Handle)')
+		bounce(collision)
+
+func bounce(collision):
+	state = ROLLING
+	velocity = velocity.bounce(collision.normal)
 
 func rolling(delta):
 	pickupable = true

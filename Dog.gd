@@ -15,11 +15,13 @@ var holding_ball = true
 var velocity = Vector2.ZERO
 
 onready var player = get_node('/root/Game/World/Player')
+onready var noticeArea = $NoticeArea
 onready var pickupArea = $PickupArea
+onready var aggroArea = $AggroArea
 
 var follow_distances = {
 	'Player': 64,
-	'Ball': 8
+	'Ball': 4
 }
 
 func _physics_process(_delta):
@@ -31,7 +33,11 @@ func _physics_process(_delta):
 
 func find_focus():
 	var nodes = get_node('/root/Game/World').get_children()
+	var noticed = noticeArea.get_overlapping_bodies()
+
 	for node in nodes:
+		if !node in noticed:
+			continue
 		if node.name == 'Ball':
 			return node
 		if node.name == 'Player':
@@ -57,6 +63,7 @@ func command(command_name, context):
 
 func give(item_name):
 	emit_signal('GIVE_UP', item_name)
+	self.holding_ball = false
 
 func retrieve(item):
 	print(self.name, ' is trying to retrieve ', item)

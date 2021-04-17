@@ -19,15 +19,18 @@ config/name="player-with-ball-and-dog"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [display]
 
 window/size/width=640
 window/size/height=480
 window/size/resizable=false
-window/size/borderless=true
-window/size/fullscreen=true
 window/size/test_width=640
 window/size/test_height=480
+window/vsync/use_vsync=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -97,6 +100,10 @@ throw={
 2d_physics/layer_2="player"
 2d_physics/layer_3="ball"
 
+[logging]
+
+file_logging/enable_file_logging=true
+
 [physics]
 
 2d/cell_size=32
@@ -105,6 +112,8 @@ throw={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
+quality/filters/anisotropic_filter_level=1
 environment/default_environment="res://default_env.tres"
 
 [world]

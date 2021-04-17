@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 128.0
+
+[node name="AggroArea" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+self_modulate = Color( 1, 0, 0, 0.301961 )
+shape = SubResource( 2 )

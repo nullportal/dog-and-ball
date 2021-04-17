@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Ball.gd" type="Script" id=1]
+[ext_resource path="res://tennis-ball.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 2.79154
 
+[sub_resource type="CircleShape2D" id=3]
+radius = 1.82828
+
 [node name="Ball" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -25,12 +30,10 @@ shape = SubResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 2 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 2.0
-margin_bottom = 2.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="tennis-ball" type="Sprite" parent="."]
+position = Vector2( 0.468885, 0.0790396 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 3 )
 [connection signal="area_entered" from="PickupableArea" to="." method="_on_PickupArea_area_entered"]

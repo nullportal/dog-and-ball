@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tennis-ball.png" type="Texture" id=1]
+[ext_resource path="res://player-ui.png" type="Texture" id=2]
+
+[node name="PlayerUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -416.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="player-ui" type="Sprite" parent="."]
+position = Vector2( 32, 32 )
+texture = ExtResource( 2 )
+
+[node name="tennis-ball" type="Sprite" parent="."]
+position = Vector2( 32, 32 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )

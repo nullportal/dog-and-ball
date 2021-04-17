@@ -1,20 +1,29 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Dog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World.gd" type="Script" id=3]
 [ext_resource path="res://Game.gd" type="Script" id=4]
+[ext_resource path="res://Zombie.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=6]
 
 [node name="Game" type="Node"]
 script = ExtResource( 4 )
+
+[node name="UI" parent="." instance=ExtResource( 6 )]
 
 [node name="World" type="Node" parent="."]
 script = ExtResource( 3 )
 
 [node name="Player" parent="World" instance=ExtResource( 1 )]
-position = Vector2( 320, 320 )
+position = Vector2( 88, 208 )
 
 [node name="Dog" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 384, 216 )
+position = Vector2( 152, 104 )
+
+[node name="Zombies" type="YSort" parent="World"]
+
+[node name="Zombie" parent="World/Zombies" instance=ExtResource( 5 )]
+position = Vector2( 384, 128 )
 
 [editable path="World/Player"]
