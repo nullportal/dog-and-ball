@@ -25,3 +25,5 @@ position = Vector2( 152, 104 )
 position = Vector2( 384, 128 )
 
 [editable path="World/Player"]
+
+[editable path="World/Zombie"]

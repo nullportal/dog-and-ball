@@ -1,34 +1,44 @@
 extends KinematicBody2D
 
-export var HEALTH_POINTS = 10
+signal DAMAGE(target, amount)
+
 export var MAX_SPEED = 16
+export var ATTACK_DAMAGE = 1
 
 enum {
 	FOLLOW,
 	WANDER,
 	IDLE,
+	ATTACK,
 }
 
 var focus = null
 var state = FOLLOW
 var velocity = Vector2.ZERO
 
+# TODO Add attack cooldown
+
 onready var aggroArea = $AggroArea
+onready var attackArea = $AttackArea
+onready var health = $Health
 
 var follow_distances = {
-	'Player': 8,
-	'Dog': 8,
+	'Player': 28,
+	'Dog': 28,
 }
 
 func _physics_process(_delta):
 	self.focus = self.find_focus()
+	if attackArea.overlaps_body(self.focus):
+		self.attack(self.focus)
 
 	match state:
 		FOLLOW:
 			follow(self.focus)
+		ATTACK:
+			pass
 
 func find_focus():
-	#var nodes = get_node('/root/Game/World').get_children()
 	var nodes = aggroArea.get_overlapping_bodies()
 	for node in nodes:
 		if node.name == 'Player':
@@ -46,3 +56,6 @@ func follow(target):
 
 		velocity = position.direction_to(target.position) * MAX_SPEED
 		velocity = move_and_slide(velocity)
+
+func attack(target):
+	emit_signal('DAMAGE', target, self.ATTACK_DAMAGE)
