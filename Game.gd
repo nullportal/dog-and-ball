@@ -13,9 +13,6 @@ func _ready():
 	player.connect('COMMAND', dog, 'command')
 	dog.connect('GIVE_UP', player, 'take')
 
-	dog.connect('DAMAGE', self, 'damage_target')
-	zombie.connect('DAMAGE', self, 'damage_target')
-
 func damage_target(target, amount):
 	target.health.reduce(amount)
 	print(target.name, ' damaged for ', amount, ' points')

@@ -27,6 +27,9 @@ var follow_distances = {
 	'Dog': 28,
 }
 
+func _ready():
+	self.connect('DAMAGE', get_node('Game/World'), 'damage_target')
+
 func _physics_process(_delta):
 	self.focus = self.find_focus()
 	if attackArea.overlaps_body(self.focus):
