@@ -24,7 +24,7 @@ var can_pick_up = ['Player', 'Dog']
 var bounces = 0
 
 func _physics_process(delta):
-	if velocity <= Vector2.ZERO:
+	if velocity == Vector2.ZERO:
 		state = IDLE
 	match state:
 		IDLE:
