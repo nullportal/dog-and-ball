@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tennis-ball.png-cc66287436a792e59287d8cb958fd992.stex"
+path="res://.import/tennis-ball.png-da81c0be3d07a1813d1d2615119ab785.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tennis-ball.png"
-dest_files=[ "res://.import/tennis-ball.png-cc66287436a792e59287d8cb958fd992.stex" ]
+source_file="res://Items/tennis-ball.png"
+dest_files=[ "res://.import/tennis-ball.png-da81c0be3d07a1813d1d2615119ab785.stex" ]
 
 [params]
 

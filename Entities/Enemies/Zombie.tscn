@@ -1,9 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Zombie.gd" type="Script" id=1]
-[ext_resource path="res://AggroArea.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Health.tscn" type="PackedScene" id=3]
-[ext_resource path="res://AttackArea.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Entities/Enemies/Zombie.gd" type="Script" id=1]
+[ext_resource path="res://Entities/AggroArea.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Health.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Entities/AttackArea.tscn" type="PackedScene" id=4]
+
+
+
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0

@@ -1,14 +1,16 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Ball.gd" type="Script" id=1]
-[ext_resource path="res://tennis-ball.png" type="Texture" id=2]
+[ext_resource path="res://Items/Ball.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 2.79154
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/tennis-ball.png-cc66287436a792e59287d8cb958fd992.stex"
+
+[sub_resource type="CircleShape2D" id=4]
 radius = 1.82828
 
 [node name="Ball" type="KinematicBody2D"]
@@ -32,8 +34,8 @@ shape = SubResource( 2 )
 
 [node name="tennis-ball" type="Sprite" parent="."]
 position = Vector2( 0.468885, 0.0790396 )
-texture = ExtResource( 2 )
+texture = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 [connection signal="area_entered" from="PickupableArea" to="." method="_on_PickupArea_area_entered"]

@@ -18,7 +18,7 @@ var aim_vec = Vector2.ZERO
 onready var reticle = $Reticle
 onready var pickupArea = $PickupArea
 onready var health = $Health
-onready var dog = get_node('/root/Game/World/Dog')
+onready var dog = get_node_or_null('/root/Game/World/Dog')
 
 func _ready():
 	pass
@@ -66,4 +66,4 @@ func take(item_name):
 	print('Player is taking ', item_name)
 	if item_name == 'Ball':
 		self.holding_ball = true
-		emit_signal('UPDATE_HELD_ITEM', 'tennis-ball') # XXX Hacky
+		emit_signal('UPDATE_HELD_ITEM', item_name)

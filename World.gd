@@ -1,6 +1,6 @@
 extends Node
 
-onready var Ball = preload('res://Ball.tscn')
+onready var Ball = preload('res://Items/Ball.tscn')
 
 func ball_thrown(from, direction):
 	var ball = Ball.instance()

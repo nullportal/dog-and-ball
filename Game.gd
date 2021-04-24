@@ -2,15 +2,17 @@ extends Node
 
 onready var health = $Health
 onready var player = get_node('World/Player')
-onready var dog = get_node('World/Dog')
+onready var dog = get_node_or_null('World/Dog')
 onready var world = $World
 onready var ui = get_node('UI/PlayerUI')
 
 func _ready():
 	player.connect('BALL_THROWN', world, 'ball_thrown')
-	player.connect('COMMAND', dog, 'command')
-	dog.connect('GIVE_UP', player, 'take')
 	player.connect('UPDATE_HELD_ITEM', ui, 'update_held_item')
+
+	if dog:
+		player.connect('COMMAND', dog, 'command')
+		dog.connect('GIVE_UP', player, 'take')
 
 func damage_target(target, amount):
 	if !target || !target.health:
