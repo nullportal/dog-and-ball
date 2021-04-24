@@ -23,9 +23,13 @@ var pickupable = false
 var can_pick_up = ['Player', 'Dog']
 var bounces = 0
 
+func _ready():
+	self.connect('BALL_PICKED_UP', get_node('/root/Game/World'), 'ball_picked_up')
+
 func _physics_process(delta):
 	if velocity == Vector2.ZERO:
 		state = IDLE
+
 	match state:
 		IDLE:
 			pickupable = true

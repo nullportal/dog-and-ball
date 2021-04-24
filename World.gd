@@ -4,7 +4,6 @@ onready var Ball = preload('res://Items/Ball.tscn')
 
 func ball_thrown(from, direction):
 	var ball = Ball.instance()
-	ball.connect('BALL_PICKED_UP', self, 'ball_picked_up')
 	ball.global_position = from
 	self.add_child(ball)
 	ball.throw(direction)
