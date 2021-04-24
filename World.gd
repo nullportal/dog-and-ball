@@ -2,8 +2,6 @@ extends Node
 
 onready var Ball = preload('res://Ball.tscn')
 
-onready var game = get_node('/root/Game')
-
 func ball_thrown(from, direction):
 	var ball = Ball.instance()
 	ball.connect('BALL_PICKED_UP', self, 'ball_picked_up')

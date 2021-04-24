@@ -28,18 +28,18 @@ var follow_distances = {
 }
 
 func _ready():
-	self.connect('DAMAGE', get_node('Game/World'), 'damage_target')
+	self.connect('DAMAGE', get_node('/root/Game'), 'damage_target')
 
 func _physics_process(_delta):
 	self.focus = self.find_focus()
-	if attackArea.overlaps_body(self.focus):
-		self.attack(self.focus)
+	if self.focus && attackArea.overlaps_body(self.focus):
+		state = ATTACK
 
 	match state:
 		FOLLOW:
 			follow(self.focus)
 		ATTACK:
-			pass
+			attack(self.focus)
 
 func find_focus():
 	var nodes = aggroArea.get_overlapping_bodies()

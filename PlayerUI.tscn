@@ -15,7 +15,7 @@ __meta__ = {
 position = Vector2( 32, 32 )
 texture = ExtResource( 2 )
 
-[node name="tennis-ball" type="Sprite" parent="."]
+[node name="HeldItem" type="Sprite" parent="."]
 position = Vector2( 32, 32 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )

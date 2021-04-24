@@ -29,8 +29,7 @@ var follow_distances = {
 }
 
 func _ready():
-	print(get_node('Game/World'))
-	self.connect('DAMAGE', get_node('Game/World'), 'damage_target')
+	self.connect('DAMAGE', get_node('/root/Game'), 'damage_target')
 
 func _physics_process(_delta):
 	self.focus = self.find_focus()
