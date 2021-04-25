@@ -24,10 +24,16 @@ onready var pickupArea = $PickupArea
 onready var aggroArea = $AggroArea
 onready var attackArea = $AttackArea
 
-var follow_distances = {
-	'player': 64,
-	'zombie': 32,
-	'ball': 8
+var focus_map = {
+	'player': {
+		'follow_distance': 64,
+	},
+	'zombie': {
+		'follow_distance': 32,
+	},
+	'ball': {
+		'follow_distance': 8,
+	},
 }
 
 func _ready():
@@ -42,14 +48,22 @@ func _physics_process(_delta):
 		FOLLOW:
 			follow(self.focus)
 
-func find_foci(noticeArea):
-	var noticed = noticeArea.get_overlapping_bodies()
+func find_foci(area):
+	var noticed = area.get_overlapping_bodies()
 	return noticed
 
+func rank_foci(nodes):
+	# TODO Rank and find singular focus
+	var foci = []
+	for node in nodes:
+		pass
+
 func find_focus(nodes):
-	# FIXME Figure out rank and target by allure
+	var foci = self.rank_foci(nodes)
+
 	for node in nodes:
 		if node.is_in_group('Enemies'):
+
 			# TODO Move this condition elsewhere
 			if attackArea.overlaps_body(node):
 				self.attack(node)
@@ -63,7 +77,7 @@ func find_focus(nodes):
 
 func follow(target):
 	if target && state == FOLLOW:
-		var follow_distance = self.follow_distances[target.SLUG]
+		var follow_distance = self.focus_map[target.SLUG].follow_distance
 		var distance_to_target = self.position.distance_to(target.position)
 		if distance_to_target <= follow_distance:
 			return
