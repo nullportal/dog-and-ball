@@ -22,15 +22,13 @@ var velocity = Vector2.ZERO
 var state = IDLE
 var pickupable = false
 var can_pick_up = ['Player', 'Dog']
-var bounces = 0
+
+onready var pickupable_area = $PickupableArea
 
 func _ready():
 	self.connect('BALL_PICKED_UP', get_node('/root/Game/World'), 'ball_picked_up')
 
 func _physics_process(delta):
-	if velocity == Vector2.ZERO:
-		state = IDLE
-
 	match state:
 		IDLE:
 			pickupable = true
@@ -39,16 +37,31 @@ func _physics_process(delta):
 		THROWN:
 			thrown()
 
+	var pu_area = pickup_area_overlapping(pickupable_area)
+	if pu_area:
+		emit_signal('BALL_PICKED_UP', self, pu_area.get_parent())
+		# Keep double evt from firing
+		self.pickupable = false
+		self.queue_free()
+
 	var collision = move_and_collide(velocity)
 	if collision:
 		bounce(collision)
+
+	if velocity == Vector2.ZERO:
+		state = IDLE
+
+func pickup_area_overlapping(my_area):
+	var intersecting_areas = my_area.get_overlapping_areas()
+	for area in intersecting_areas:
+		if area.name == 'PickupArea' && area.get_parent().name in self.can_pick_up && self.pickupable:
+			return area
 
 func bounce(collision):
 	state = ROLLING
 	velocity = velocity.bounce(collision.normal)
 
 func rolling(delta):
-	pickupable = true
 	velocity = velocity.move_toward(
 		Vector2.ZERO,
 		FRICTION * delta
@@ -67,10 +80,3 @@ func throw(aim_vec):
 		aim_vec * MAX_SPEED,
 		ACCELERATION
 	)
-
-func _on_PickupArea_area_entered(area):
-	if area.get_parent().name in self.can_pick_up && self.pickupable:
-		emit_signal('BALL_PICKED_UP', self, area.get_parent())
-		# Keep double evt from firing
-		self.pickupable = false
-		self.queue_free()
