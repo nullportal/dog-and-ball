@@ -70,3 +70,6 @@ func throw(aim_vec):
 func _on_PickupArea_area_entered(area):
 	if area.get_parent().name in self.can_pick_up && self.pickupable:
 		emit_signal('BALL_PICKED_UP', self, area.get_parent())
+		# Keep double evt from firing
+		self.pickupable = false
+		self.queue_free()

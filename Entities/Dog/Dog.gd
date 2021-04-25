@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-signal GIVE_UP(item_name, to_name)
+signal GIVE(item, from, to)
 signal DAMAGE(target, amount)
 
 export var MAX_SPEED = 128
@@ -25,7 +25,7 @@ onready var attackArea = $AttackArea
 
 var follow_distances = {
 	'Player': 64,
-	'Ball': 4
+	'Ball': 8
 }
 
 func _ready():
@@ -42,6 +42,7 @@ func find_focus():
 	var nodes = get_node('/root/Game/World').get_children()
 	var noticed = noticeArea.get_overlapping_bodies()
 
+	# FIXME Figure out target by allure
 	for node in nodes:
 		if !node in noticed:
 			continue
@@ -74,8 +75,7 @@ func command(command_name, context):
 		attack(context)
 
 func give(item_name):
-	emit_signal('GIVE_UP', item_name)
-	self.holding_ball = false
+	emit_signal('GIVE', item_name, self, player)
 
 func retrieve(item):
 	print(self.name, ' is trying to retrieve ', item)

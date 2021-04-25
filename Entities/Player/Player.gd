@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 signal BALL_THROWN(from, direction)
-signal UPDATE_HELD_ITEM(item)
 signal COMMAND(command_name, context)
+signal UPDATE_HELD_ITEM(who, what)
 
 export var HEALTH_POINTS = 10
 export var ACCELERATION = 500
@@ -27,15 +27,12 @@ func _physics_process(delta):
 	state = MOVE
 	if Input.is_action_just_pressed("throw"):
 		if holding_ball:
-			emit_signal('BALL_THROWN', self.global_position, aim_vec)
-			emit_signal('UPDATE_HELD_ITEM', null)
-			holding_ball = false
+			emit_signal('BALL_THROWN', self, self.global_position, aim_vec)
+			emit_signal('UPDATE_HELD_ITEM', self, null)
 		elif dog:
 			if pickupArea.overlaps_area(dog.pickupArea):
-				print('Trying to get item from dog...')
 				emit_signal('COMMAND', 'give', 'Ball')
 			else:
-				print('Trying to get dog to retrieve ball...')
 				emit_signal('COMMAND', 'retrieve', 'Ball')
 
 	match state:
@@ -61,9 +58,3 @@ func move_state(delta):
 			FRICTION * delta
 		)
 	velocity = move_and_slide(velocity)
-
-func take(item_name):
-	print('Player is taking ', item_name)
-	if item_name == 'Ball':
-		self.holding_ball = true
-		emit_signal('UPDATE_HELD_ITEM', item_name)
