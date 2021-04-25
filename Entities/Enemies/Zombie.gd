@@ -4,6 +4,7 @@ signal DAMAGE(target, amount)
 
 export var MAX_SPEED = 16
 export var ATTACK_DAMAGE = 1
+export var SLUG = 'zombie'
 
 enum {
 	FOLLOW,

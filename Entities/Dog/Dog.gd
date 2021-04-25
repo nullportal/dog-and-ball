@@ -5,6 +5,7 @@ signal DAMAGE(target, amount)
 
 export var MAX_SPEED = 128
 export var ATTACK_DAMAGE = 1
+export var SLUG = 'dog'
 
 enum {
 	FOLLOW,
@@ -24,8 +25,9 @@ onready var aggroArea = $AggroArea
 onready var attackArea = $AttackArea
 
 var follow_distances = {
-	'Player': 64,
-	'Ball': 8
+	'player': 64,
+	'zombie': 32,
+	'ball': 8
 }
 
 func _ready():
@@ -46,19 +48,21 @@ func find_focus():
 	for node in nodes:
 		if !node in noticed:
 			continue
+		if node.is_in_group('Enemies'):
+			# TODO Move this condition elsewhere
+			if attackArea.overlaps_body(node):
+				self.attack(node)
+			return node
 		if node.name == 'Ball':
 			return node
 		if node.name == 'Player':
 			if node.holding_ball:
 				return node
-		if node.is_in_group('Enemies'):
-			if attackArea.overlaps_body(node):
-				self.attack(node)
 	return self.focus
 
 func follow(target):
 	if target && state == FOLLOW:
-		var follow_distance = self.follow_distances[target.name]
+		var follow_distance = self.follow_distances[target.SLUG]
 		var distance_to_target = self.position.distance_to(target.position)
 		if distance_to_target <= follow_distance:
 			return

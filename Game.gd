@@ -7,7 +7,7 @@ onready var ui = get_node('UI')
 
 func _ready():
 	player.connect('BALL_THROWN', world, 'ball_thrown')
-	player.connect('UPDATE_HELD_ITEM', ui, 'update_held_item') # For throw
+	player.connect('MOVED', ui, 'move_camera')
 	world.connect('UPDATE_HELD_ITEM', ui, 'update_held_item') # For take
 
 	if dog:

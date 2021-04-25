@@ -6,6 +6,7 @@ export var FRICTION = 5
 export var MAX_SPEED = 8
 export var ACCELERATION = 6
 export var THROW_DISTANCE = 100
+export var SLUG = 'ball'
 
 # TODO Attract dog
 export var ALLURE = 999

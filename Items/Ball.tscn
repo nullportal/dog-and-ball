@@ -11,7 +11,7 @@ radius = 2.79154
 load_path = "res://.import/tennis-ball.png-cc66287436a792e59287d8cb958fd992.stex"
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 1.82828
+radius = 5.76485
 
 [node name="Ball" type="KinematicBody2D"]
 collision_layer = 2

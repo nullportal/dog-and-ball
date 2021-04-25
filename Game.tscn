@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Dog/Dog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World.gd" type="Script" id=3]
 [ext_resource path="res://Game.gd" type="Script" id=4]
-[ext_resource path="res://UI/UI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Entities/Enemies/Zombie.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/UI.gd" type="Script" id=7]
 [ext_resource path="res://Entities/Health.tscn" type="PackedScene" id=8]
+[ext_resource path="res://UI/PlayerUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://UI/DogUI.tscn" type="PackedScene" id=10]
 
 [node name="Game" type="Node"]
 script = ExtResource( 4 )
@@ -15,14 +18,43 @@ script = ExtResource( 4 )
 [node name="World" type="Node" parent="."]
 script = ExtResource( 3 )
 
+[node name="Background" type="ColorRect" parent="World"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0196078, 0.337255, 0.0196078, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
 [node name="Dog" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 168, 120 )
+position = Vector2( 254, 403 )
 
 [node name="Player" parent="World" instance=ExtResource( 1 )]
 position = Vector2( 64, 224 )
 
-[node name="UI" parent="." instance=ExtResource( 6 )]
+[node name="Zombie" parent="World" instance=ExtResource( 5 )]
+position = Vector2( 598.467, 443.768 )
 
-[editable path="UI"]
+[node name="Zombie2" parent="World" instance=ExtResource( 5 )]
+position = Vector2( 597, 345 )
 
-[editable path="UI/PlayerUI"]
+[node name="Zombie3" parent="World" instance=ExtResource( 5 )]
+position = Vector2( 600, 215 )
+
+[node name="Zombie4" parent="World" instance=ExtResource( 5 )]
+position = Vector2( 595, 74 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 7 )
+
+[node name="Camera2D" type="Camera2D" parent="UI"]
+position = Vector2( 320, 240 )
+current = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PlayerUI" parent="UI" instance=ExtResource( 9 )]
+
+[node name="DogUI" parent="UI" instance=ExtResource( 10 )]

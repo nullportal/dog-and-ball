@@ -5,15 +5,13 @@
 [ext_resource path="res://Entities/Health.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/AttackArea.tscn" type="PackedScene" id=4]
 
-
-
-
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
 height = 12.0
 
 [node name="Zombie" type="KinematicBody2D" groups=[
 "Enemies",
+"Zombies",
 ]]
 script = ExtResource( 1 )
 
