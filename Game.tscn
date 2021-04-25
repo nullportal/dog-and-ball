@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Dog/Dog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World.gd" type="Script" id=3]
 [ext_resource path="res://Game.gd" type="Script" id=4]
 [ext_resource path="res://UI/UI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://UI/PlayerUI.gd" type="Script" id=7]
 [ext_resource path="res://Entities/Health.tscn" type="PackedScene" id=8]
 
 [node name="Game" type="Node"]
@@ -23,9 +22,6 @@ position = Vector2( 168, 120 )
 position = Vector2( 64, 224 )
 
 [node name="UI" parent="." instance=ExtResource( 6 )]
-
-[node name="PlayerUI" parent="UI" index="0"]
-script = ExtResource( 7 )
 
 [editable path="UI"]
 
