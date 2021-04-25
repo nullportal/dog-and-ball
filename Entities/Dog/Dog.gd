@@ -34,20 +34,21 @@ func _ready():
 	self.connect('DAMAGE', get_node('/root/Game'), 'damage_target')
 
 func _physics_process(_delta):
-	self.focus = self.find_focus()
+	var foci = self.find_foci(noticeArea)
+	if foci.size() > 0:
+		self.focus = self.find_focus(foci)
 
 	match state:
 		FOLLOW:
 			follow(self.focus)
 
-func find_focus():
-	var nodes = get_node('/root/Game/World').get_children()
+func find_foci(noticeArea):
 	var noticed = noticeArea.get_overlapping_bodies()
+	return noticed
 
-	# FIXME Figure out target by allure
+func find_focus(nodes):
+	# FIXME Figure out rank and target by allure
 	for node in nodes:
-		if !node in noticed:
-			continue
 		if node.is_in_group('Enemies'):
 			# TODO Move this condition elsewhere
 			if attackArea.overlaps_body(node):
