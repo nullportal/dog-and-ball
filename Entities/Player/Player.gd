@@ -30,7 +30,7 @@ func _physics_process(delta):
 			emit_signal('BALL_THROWN', self, self.global_position, aim_vec)
 			emit_signal('UPDATE_HELD_ITEM', self, null)
 		elif dog:
-			if pickupArea.overlaps_area(dog.pickupArea):
+			if pickupArea.overlaps_area(dog.pickupArea) && dog.holding_ball:
 				emit_signal('COMMAND', 'give', 'Ball')
 			else:
 				emit_signal('COMMAND', 'retrieve', 'Ball')
