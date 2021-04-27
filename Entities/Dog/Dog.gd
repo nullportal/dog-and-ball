@@ -43,9 +43,9 @@ func _ready():
 	self.connect('DAMAGE', get_node('/root/Game'), 'damage_target')
 
 func _physics_process(_delta):
-	var foci = self.find_foci(noticeArea)
+	var foci = find_foci(noticeArea)
 	if foci.size() > 0:
-		self.focus = self.find_focus(foci)
+		self.focus = find_focus(foci)
 
 	# Prevent crash when tracking destroyed targets
 	if !is_instance_valid(self.focus):
@@ -53,11 +53,11 @@ func _physics_process(_delta):
 
 	match state:
 		FOLLOW:
-			self.follow(self.focus)
+			follow(self.focus)
 
 	if self.focus.is_in_group('Enemies'):
-		if self.can_attack(self.focus):
-			self.attack(self.focus)
+		if can_attack(self.focus):
+			attack(self.focus)
 
 func find_foci(area):
 	var noticed = area.get_overlapping_bodies()
@@ -92,7 +92,7 @@ func rank_foci(nodes):
 	return foci
 
 func find_focus(nodes):
-	var focus = self.rank_foci(nodes)[0].node
+	var focus = rank_foci(nodes)[0].node
 	if typeof(self.focus) != typeof(focus) || self.focus != focus:
 		print('%s focus change to %s' % [self.SLUG, focus.SLUG])
 
@@ -115,14 +115,15 @@ func command(command_name, context):
 		give(context)
 	if command_name == 'retrieve':
 		retrieve(context)
-	if command_name == 'attack':
+	if command_name == 'attack': # TODO Implement attack as a command
 		attack(context)
 
 func give(item_name):
 	emit_signal('GIVE', item_name, self, player)
 
-func retrieve(item):
-	print(self.name, ' is trying to retrieve ', item)
+# NOTE Slightly hacky: Just manually sets focus to player,
+# but could still be distracted by more alluring targets
+func retrieve(_item):
 	self.focus = player
 
 func can_attack(focus):
