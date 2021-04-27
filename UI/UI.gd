@@ -8,7 +8,6 @@ onready var dog_held_item = get_node('./DogUI/HeldItem')
 
 func move_camera(pos):
 	if camera.position != pos:
-		print('moving camera to %s'%pos)
 		camera.position = pos
 
 func update_held_item(who, item):
