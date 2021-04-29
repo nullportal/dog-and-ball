@@ -3,10 +3,22 @@ extends Position2D
 export var MAX_DISTANCE = 5
 
 func aim_reticle(event):
-	if event is InputEventJoypadMotion:
+	if event is InputEventMouseMotion:
+		return _aim_mouse_reticle()
+	elif event is InputEventJoypadMotion:
 		return _aim_joy_reticle()
 	else:
 		assert(false, 'Unknown input event %s' % event)
+
+func _aim_mouse_reticle():
+	var mpos = get_global_mouse_position()
+	var ppos = self.get_parent().global_position
+	var mvec = Vector2(
+		mpos.x - ppos.x,
+		mpos.y - ppos.y
+	).normalized()
+
+	return _update_reticle(mvec)
 
 func _aim_joy_reticle():
 	var joy_left = Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left")

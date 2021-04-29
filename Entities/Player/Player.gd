@@ -43,7 +43,7 @@ func _physics_process(delta):
 			emit_signal('MOVED', self.global_position)
 
 func _input(event):
-	if event is InputEventJoypadMotion:
+	if event is InputEventMouseMotion || event is InputEventJoypadMotion:
 		self.aim_vec = reticle.aim_reticle(event)
 
 func move_state(delta):
