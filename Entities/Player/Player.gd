@@ -42,7 +42,9 @@ func _physics_process(delta):
 			move_state(delta)
 			emit_signal('MOVED', self.global_position)
 
-	aim_vec = reticle.aim_reticle()
+func _input(event):
+	if event is InputEventJoypadMotion:
+		self.aim_vec = reticle.aim_reticle(event)
 
 func move_state(delta):
 	var move_vec = Vector2.ZERO
