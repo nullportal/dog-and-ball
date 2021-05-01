@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 export var MAX_SPEED = 16
-export var ATTACK_DAMAGE = 1
 export var SLUG = 'zombie'
 
 enum {
@@ -56,4 +55,4 @@ func follow(target):
 		velocity = move_and_slide(velocity)
 
 func attack(target):
-	combat.attack(target, self.ATTACK_DAMAGE)
+	combat.attack(target)

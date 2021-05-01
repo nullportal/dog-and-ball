@@ -1,14 +1,19 @@
 extends Node
 
-signal DAMAGE(target, amount)
+export var ATTACK_DAMAGE = 0
+export var ATTACK_COOLDOWN = 0
 
-onready var attack = $Attack
+onready var _attack = $Attack
 
 func _ready():
-	self.connect('DAMAGE', get_node('/root/Game'), 'damage_target')
-
-	print('%s is set up for combat' % get_parent().SLUG)
+	print('%s is set up for combat: %s' % [
+		get_parent().name,
+		{
+			'ATTACK_DAMAGE': _attack.ATTACK_DAMAGE,
+			'ATTACK_COOLDOWN': _attack.ATTACK_COOLDOWN
+		}
+	])
 
 # TODO Add attack cooldown - probably need more context
-func attack(target, amount):
-	emit_signal('DAMAGE', target, amount)
+func attack(target):
+	_attack.damage(target)

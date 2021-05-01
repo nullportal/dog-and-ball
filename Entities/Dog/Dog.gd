@@ -3,7 +3,6 @@ extends KinematicBody2D
 signal GIVE(item, from, to)
 
 export var MAX_SPEED = 128
-export var ATTACK_DAMAGE = 1
 export var SLUG = 'dog'
 
 enum {
@@ -127,7 +126,7 @@ func can_attack(focus):
 	return attackArea.overlaps_body(focus)
 
 func attack(target):
-	combat.attack(target, self.ATTACK_DAMAGE)
+	combat.attack(target)
 
 # NOTE Requires dict with 'sort_key'
 func _sort_nodes(a, b):
