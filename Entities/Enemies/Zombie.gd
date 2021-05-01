@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-signal DAMAGE(target, amount)
-
 export var MAX_SPEED = 16
 export var ATTACK_DAMAGE = 1
 export var SLUG = 'zombie'
@@ -17,19 +15,15 @@ var focus = null
 var state = FOLLOW
 var velocity = Vector2.ZERO
 
-# TODO Add attack cooldown
-
 onready var aggroArea = $AggroArea
 onready var attackArea = $AttackArea
 onready var health = $Health
+onready var combat = $Combat
 
 var follow_distances = {
 	'Player': 28,
 	'Dog': 28,
 }
-
-func _ready():
-	self.connect('DAMAGE', get_node('/root/Game'), 'damage_target')
 
 func _physics_process(_delta):
 	self.focus = self.find_focus()
@@ -62,4 +56,4 @@ func follow(target):
 		velocity = move_and_slide(velocity)
 
 func attack(target):
-	emit_signal('DAMAGE', target, self.ATTACK_DAMAGE)
+	combat.attack(target, self.ATTACK_DAMAGE)

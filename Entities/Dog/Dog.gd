@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 signal GIVE(item, from, to)
-signal DAMAGE(target, amount)
 
 export var MAX_SPEED = 128
 export var ATTACK_DAMAGE = 1
@@ -23,6 +22,7 @@ onready var noticeArea = $NoticeArea
 onready var pickupArea = $PickupArea
 onready var aggroArea = $AggroArea
 onready var attackArea = $AttackArea
+onready var combat = $Combat
 
 var focus_map = {
 	'player': {
@@ -38,9 +38,6 @@ var focus_map = {
 		'allure': 500,
 	},
 }
-
-func _ready():
-	self.connect('DAMAGE', get_node('/root/Game'), 'damage_target')
 
 func _physics_process(_delta):
 	var foci = find_foci(noticeArea)
@@ -130,7 +127,7 @@ func can_attack(focus):
 	return attackArea.overlaps_body(focus)
 
 func attack(target):
-	emit_signal('DAMAGE', target, self.ATTACK_DAMAGE)
+	combat.attack(target, self.ATTACK_DAMAGE)
 
 # NOTE Requires dict with 'sort_key'
 func _sort_nodes(a, b):

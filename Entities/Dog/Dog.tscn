@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Entities/Dog/Dog.gd" type="Script" id=1]
 [ext_resource path="res://Entities/PickupArea.tscn" type="PackedScene" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://Entities/AggroArea.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Entities/NoticeArea.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/AttackArea.tscn" type="PackedScene" id=6]
-
-
+[ext_resource path="res://Entities/Combat.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.209
@@ -41,3 +40,7 @@ __meta__ = {
 
 [node name="Health" parent="." instance=ExtResource( 3 )]
 HEALTH_POINTS = 100
+
+[node name="Combat" parent="." instance=ExtResource( 7 )]
+
+[editable path="Health"]
