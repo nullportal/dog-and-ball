@@ -48,6 +48,9 @@ position = Vector2( 600, 200 )
 [node name="Zombie4" parent="World" instance=ExtResource( 5 )]
 position = Vector2( 384, -8 )
 
+[node name="Zombie8" parent="World" instance=ExtResource( 5 )]
+position = Vector2( 220.797, 152.567 )
+
 [node name="Zombie5" parent="World" instance=ExtResource( 5 )]
 position = Vector2( 752, -32 )
 

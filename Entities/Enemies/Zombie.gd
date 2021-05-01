@@ -19,6 +19,9 @@ onready var attackArea = $AttackArea
 onready var health = $Health
 onready var combat = $Combat
 
+# FIXME Abstract this out a bit
+onready var animationPlayer = $ColorRect/AnimationPlayer
+
 var follow_distances = {
 	'Player': 28,
 	'Dog': 28,
@@ -53,6 +56,10 @@ func follow(target):
 
 		velocity = position.direction_to(target.position) * MAX_SPEED
 		velocity = move_and_slide(velocity)
+
+func hurt_animation():
+	print('%s is attempting to play hurt animation!' % self.SLUG)
+	animationPlayer.play('flash')
 
 func attack(target):
 	combat.attack(target)

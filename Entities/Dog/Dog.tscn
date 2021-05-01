@@ -33,6 +33,7 @@ margin_left = -9.0
 margin_top = -9.0
 margin_right = 9.0
 margin_bottom = 9.0
+color = Color( 0.533333, 0.262745, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -42,7 +43,7 @@ HEALTH_POINTS = 100
 
 [node name="Combat" parent="." instance=ExtResource( 7 )]
 ATTACK_DAMAGE = 1.0
-ATTACK_COOLDOWN = 0.5
+ATTACK_COOLDOWN = 0.8
 
 [editable path="Health"]
 [editable path="Combat"]
