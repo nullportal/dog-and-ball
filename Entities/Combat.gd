@@ -1,7 +1,7 @@
 extends Node
 
-export var ATTACK_DAMAGE = 0
-export var ATTACK_COOLDOWN = 0
+export var ATTACK_DAMAGE := 0.0
+export var ATTACK_COOLDOWN := 0.0
 
 onready var _attack = $Attack
 
@@ -14,6 +14,5 @@ func _ready():
 		}
 	])
 
-# TODO Add attack cooldown - probably need more context
 func attack(target):
 	_attack.damage(target)

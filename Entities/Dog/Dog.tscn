@@ -41,10 +41,8 @@ __meta__ = {
 HEALTH_POINTS = 100
 
 [node name="Combat" parent="." instance=ExtResource( 7 )]
-ATTACK_DAMAGE = 1
-
-[node name="Attack" parent="Combat" index="0"]
-ATTACK_DAMAGE = 1
+ATTACK_DAMAGE = 1.0
+ATTACK_COOLDOWN = 0.5
 
 [editable path="Health"]
 [editable path="Combat"]
