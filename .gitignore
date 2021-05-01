@@ -2,3 +2,5 @@ addons/*
 .import/*
 .vscode/*
 exports/*
+.mono/*
+export_presets.cfg
