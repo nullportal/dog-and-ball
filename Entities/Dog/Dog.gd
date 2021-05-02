@@ -128,6 +128,9 @@ func can_attack(focus):
 func attack(target):
 	combat.attack(target)
 
+func hurt_animation():
+	combat.hurt()
+
 # NOTE Requires dict with 'sort_key'
 func _sort_nodes(a, b):
 	return a.sort_key > b.sort_key

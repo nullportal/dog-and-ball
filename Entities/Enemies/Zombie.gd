@@ -58,7 +58,6 @@ func follow(target):
 		velocity = move_and_slide(velocity)
 
 func hurt_animation():
-	print('%s is attempting to play hurt animation!' % self.SLUG)
 	animationPlayer.play('flash')
 
 func attack(target):
