@@ -46,4 +46,3 @@ ATTACK_DAMAGE = 1.0
 ATTACK_COOLDOWN = 0.8
 
 [editable path="Health"]
-[editable path="Combat"]

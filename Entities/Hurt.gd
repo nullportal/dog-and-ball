@@ -1,50 +1,41 @@
 extends Node
 
-# TODO Copy sprite to module (and overlay?)
-# TODO Programmatically play hurt anim (white flash) - this:
-#   [sub_resource type="Animation" id=2]
-#   resource_name = "flash"
-#   length = 0.04
-#   step = 0.005
-#   tracks/0/type = "value"
-#   tracks/0/path = NodePath(".:color")
-#   tracks/0/interp = 1
-#   tracks/0/loop_wrap = true
-#   tracks/0/imported = false
-#   tracks/0/enabled = true
-#   tracks/0/keys = {
-#   "times": PoolRealArray( 0, 0.015, 0.03, 0.04 ),
-#   "transitions": PoolRealArray( 1, 1, 1, 1 ),
-#   "update": 1,
-#   "values": [ Color( 0.772549, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 0.772549, 0, 0, 1 ) ]
-#   }
-
-onready var rect = null setget set_rect, get_rect
+onready var HURT_PROPERTIES:Dictionary = get_parent().HURT_PROPERTIES
 onready var animationPlayer = null
 
 func _ready():
-  animationPlayer = AnimationPlayer.new()
-  add_child(animationPlayer)
+	var sprite = get_node(HURT_PROPERTIES.spritePath)
+	var spriteProperty = HURT_PROPERTIES.spriteProperty
+	var effect = HURT_PROPERTIES.effects
+	if !(sprite is ColorRect):
+		assert(false, 'Unimplemented hurt target %s' % sprite)
+	if spriteProperty != 'color':
+		assert(false, 'Unimplemented hurt target property %s' % spriteProperty)
+	if effect == ['flash']:
+		effect = effect[0]
+	else:
+		assert(false, 'Unimplemented hurt effect %s' % effect)
 
-  var hurtFlash = Animation.new()
-  animationPlayer.add_animation('hurt_flash', hurtFlash)
+	var spritePropertyPath = '{path}:{property}'.format(
+		{'path': String(sprite.get_path()), 'property': spriteProperty}
+	)
+	var spritePropertyOriginalValue:Color = sprite.color
 
-  var trackIdx = hurtFlash.add_track(Animation.TYPE_VALUE) # ??
-  var path = String(get_parent().get_parent().get_path()) + '/ColorRect:color'
-  hurtFlash.track_set_path(trackIdx, path)
-  hurtFlash.length = 0.1
-  hurtFlash.track_insert_key(trackIdx, 0.1, Color(1,1,1,1))
+	animationPlayer = AnimationPlayer.new()
+	add_child(animationPlayer)
 
-  var x = NodePath(path)
-  var y = get_node(NodePath(path))
-  print([x,y])
-  print('Setting up %s hurt behaviour using %s ...' % [get_parent().name, NodePath(path)])
+	var hurtFlash = Animation.new()
+	animationPlayer.add_animation('hurt_flash', hurtFlash)
 
-func flash():
-  animationPlayer.play('hurt_flash')
+	var trackIdx = hurtFlash.add_track(Animation.TYPE_VALUE) # ??
+	hurtFlash.track_set_path(trackIdx, spritePropertyPath)
+	hurtFlash.length = 0.04
+	hurtFlash.track_insert_key(trackIdx, 0.0, spritePropertyOriginalValue)
+	hurtFlash.track_insert_key(trackIdx, 0.035, Color.white)
+	hurtFlash.track_insert_key(trackIdx, 0.04, spritePropertyOriginalValue)
 
-func get_rect():
-  return rect
-
-func set_rect(r):
-  rect = r
+func pain():
+	if 'flash' in HURT_PROPERTIES.effects:
+		animationPlayer.play('hurt_flash')
+	else:
+		assert(false, 'Failed to react to hurt')
