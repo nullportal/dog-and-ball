@@ -4,6 +4,13 @@ onready var HURT_PROPERTIES:Dictionary = get_parent().HURT_PROPERTIES
 onready var animationPlayer = null
 
 func _ready():
+	_setup_pain_flash()
+
+func pain():
+	if 'pain-flash' in HURT_PROPERTIES.effects:
+		animationPlayer.play('pain_flash')
+
+func _setup_pain_flash():
 	var sprite = get_node(HURT_PROPERTIES.spritePath)
 	var spriteProperty = HURT_PROPERTIES.spriteProperty
 	var effect = HURT_PROPERTIES.effects
@@ -33,7 +40,3 @@ func _ready():
 	painFlash.track_insert_key(trackIdx, 0.0, spritePropertyOriginalValue)
 	painFlash.track_insert_key(trackIdx, 0.035, Color.white)
 	painFlash.track_insert_key(trackIdx, 0.04, spritePropertyOriginalValue)
-
-func pain():
-	if 'pain-flash' in HURT_PROPERTIES.effects:
-		animationPlayer.play('pain_flash')
