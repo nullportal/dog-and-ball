@@ -54,8 +54,5 @@ func follow(target):
 		velocity = position.direction_to(target.position) * MAX_SPEED
 		velocity = move_and_slide(velocity)
 
-func hurt_animation():
-	combat.hurt()
-
 func attack(target):
 	combat.attack(target)

@@ -18,7 +18,8 @@ func damage_target(target, amount):
 	if !target || !target.health:
 		return
 	if target.has_method('hurt_animation'):
-		target.hurt_animation()
+		target.combat.hurt()
+
 	target.health.reduce(amount)
 	print(target.name, ' damaged for ', amount, ' points')
 	if target.health.HEALTH_POINTS <= 0:
