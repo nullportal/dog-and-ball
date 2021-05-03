@@ -11,7 +11,7 @@ func _ready():
 		assert(false, 'Unimplemented hurt target %s' % sprite)
 	if spriteProperty != 'color':
 		assert(false, 'Unimplemented hurt target property %s' % spriteProperty)
-	if effect == ['flash']:
+	if effect == ['pain-flash']:
 		effect = effect[0]
 	else:
 		assert(false, 'Unimplemented hurt effect %s' % effect)
@@ -24,18 +24,16 @@ func _ready():
 	animationPlayer = AnimationPlayer.new()
 	add_child(animationPlayer)
 
-	var hurtFlash = Animation.new()
-	animationPlayer.add_animation('hurt_flash', hurtFlash)
+	var painFlash = Animation.new()
+	animationPlayer.add_animation('pain_flash', painFlash)
 
-	var trackIdx = hurtFlash.add_track(Animation.TYPE_VALUE) # ??
-	hurtFlash.track_set_path(trackIdx, spritePropertyPath)
-	hurtFlash.length = 0.04
-	hurtFlash.track_insert_key(trackIdx, 0.0, spritePropertyOriginalValue)
-	hurtFlash.track_insert_key(trackIdx, 0.035, Color.white)
-	hurtFlash.track_insert_key(trackIdx, 0.04, spritePropertyOriginalValue)
+	var trackIdx = painFlash.add_track(Animation.TYPE_VALUE) # ??
+	painFlash.track_set_path(trackIdx, spritePropertyPath)
+	painFlash.length = 0.04
+	painFlash.track_insert_key(trackIdx, 0.0, spritePropertyOriginalValue)
+	painFlash.track_insert_key(trackIdx, 0.035, Color.white)
+	painFlash.track_insert_key(trackIdx, 0.04, spritePropertyOriginalValue)
 
 func pain():
-	if 'flash' in HURT_PROPERTIES.effects:
-		animationPlayer.play('hurt_flash')
-	else:
-		assert(false, 'Failed to react to hurt')
+	if 'pain-flash' in HURT_PROPERTIES.effects:
+		animationPlayer.play('pain_flash')

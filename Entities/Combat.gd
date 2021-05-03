@@ -13,7 +13,7 @@ func _enter_tree():
 	self.HURT_PROPERTIES = {
 		'spritePath': NodePath(String(get_parent().get_path())+'/ColorRect'),
 		'spriteProperty': 'color',
-		'effects': ['flash']
+		'effects': ['pain-flash']
 	}
 
 func _ready():

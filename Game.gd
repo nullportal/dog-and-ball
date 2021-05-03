@@ -17,7 +17,7 @@ func _ready():
 func damage_target(target, amount):
 	if !target || !target.health:
 		return
-	if target.has_method('hurt_animation'):
+	if target.combat && target.combat.has_method('hurt'):
 		target.combat.hurt()
 
 	target.health.reduce(amount)
