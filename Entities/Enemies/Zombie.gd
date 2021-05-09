@@ -13,6 +13,10 @@ enum {
 var focus = null
 var state = FOLLOW
 var velocity = Vector2.ZERO
+# FIXME Move kb logic to general location, so can be applied universally
+var knockbackVelocity = Vector2.ZERO setget set_knockback
+func set_knockback(kb):
+	knockbackVelocity = kb
 
 onready var aggroArea = $AggroArea
 onready var attackArea = $AttackArea
@@ -38,6 +42,10 @@ func _physics_process(_delta):
 		ATTACK:
 			attack(self.focus)
 
+	var velocities = apply_velocity(velocity, knockbackVelocity, 150)
+	velocity = velocities['movement']
+	knockbackVelocity = velocities['knockback']
+
 func find_focus():
 	var nodes = aggroArea.get_overlapping_bodies()
 	for node in nodes:
@@ -55,7 +63,15 @@ func follow(target):
 			return
 
 		velocity = position.direction_to(target.position) * MAX_SPEED
-		velocity = move_and_slide(velocity)
+		return velocity # Global scope so kinda doesn't matter
+
+func apply_velocity(v, kbv, kbStrength = 200):
+	v = move_and_slide(v)
+	if kbv != Vector2.ZERO:
+		kbv = kbv.move_toward(Vector2.ZERO, kbStrength)
+		kbv = move_and_slide(kbv)
+
+	return {'movement': v, 'knockback': kbv}
 
 func attack(target):
 	combat.attack(target)

@@ -47,5 +47,6 @@ HEALTH_POINTS = 100
 [node name="Combat" parent="." instance=ExtResource( 7 )]
 ATTACK_DAMAGE = 1.0
 ATTACK_COOLDOWN = 0.8
+KNOCKBACK_FORCE = 400
 
 [editable path="Health"]

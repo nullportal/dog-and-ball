@@ -14,16 +14,20 @@ func _ready():
 		player.connect('COMMAND', dog, 'command')
 		dog.connect('GIVE', world, 'give')
 
-func damage_target(target, amount):
-	if !target || !target.health:
+func damage_target(fromNode, toNode, amount):
+	if !toNode || !toNode.health:
 		return
-	if target.combat && target.combat.has_method('hurt'):
-		target.combat.hurt()
+	if toNode.combat && toNode.combat.has_method('hurt'):
+		toNode.combat.hurt()
 
-	target.health.reduce(amount)
-	if target.health.HEALTH_POINTS <= 0:
-		print(target.name, ' destroyed!')
-		target.queue_free()
+	toNode.health.reduce(amount)
+	if toNode.health.HEALTH_POINTS <= 0:
+		print(toNode.name, ' destroyed!')
+		toNode.queue_free()
+
+	if toNode.has_method('set_knockback'):
+		var knockback = fromNode.position.direction_to(toNode.position)
+		toNode.set_knockback(knockback * fromNode.combat.KNOCKBACK_FORCE)
 
 func health_changed(node, oldHealth, newHealth):
 	if node.healthDisplay:

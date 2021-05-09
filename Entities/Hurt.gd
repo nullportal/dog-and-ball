@@ -18,7 +18,7 @@ func _setup_pain_flash():
 		assert(false, 'Unimplemented hurt target %s' % sprite)
 	if spriteProperty != 'color':
 		assert(false, 'Unimplemented hurt target property %s' % spriteProperty)
-	if effect == ['pain-flash']:
+	if effect == ['pain-flash']: # XXX This will break if multiple effects
 		effect = effect[0]
 	else:
 		assert(false, 'Unimplemented hurt effect %s' % effect)

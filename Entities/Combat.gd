@@ -2,10 +2,13 @@ extends Node
 
 export var ATTACK_DAMAGE := 0.0
 export var ATTACK_COOLDOWN := 0.0
+export var KNOCKBACK_FORCE := 0
 export var HURT_PROPERTIES := {'spritePath': null, 'spriteProperty': null, 'effects': []}
 
 onready var _attack = $Attack
 onready var _hurt = $Hurt
+
+onready var parent = get_parent()
 
 func _enter_tree():
 	# FIXME Load this up in a config at some point,
@@ -27,7 +30,7 @@ func _ready():
 	])
 
 func attack(target):
-	_attack.damage(target)
+	_attack.damage(parent, target)
 
 func hurt():
 	_hurt.pain()
