@@ -29,6 +29,8 @@ func _physics_process(_delta):
 	self.focus = self.find_focus()
 	if self.focus && attackArea.overlaps_body(self.focus):
 		state = ATTACK
+	else:
+		state = FOLLOW
 
 	match state:
 		FOLLOW:
