@@ -5,7 +5,7 @@
 [ext_resource path="res://World.gd" type="Script" id=3]
 [ext_resource path="res://Game.gd" type="Script" id=4]
 [ext_resource path="res://Entities/Enemies/Zombie.tscn" type="PackedScene" id=5]
-[ext_resource path="res://GrassBackground.png" type="Texture" id=6]
+[ext_resource path="res://grass.png" type="Texture" id=6]
 [ext_resource path="res://UI/UI.gd" type="Script" id=7]
 [ext_resource path="res://UI/PlayerUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/DogUI.tscn" type="PackedScene" id=10]
@@ -14,15 +14,10 @@
 script = ExtResource( 4 )
 
 [node name="GrassBackground" type="Sprite" parent="."]
-position = Vector2( -256, -192 )
-scale = Vector2( 1.8, 1.86667 )
 texture = ExtResource( 6 )
-centered = false
+offset = Vector2( 160, 90 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 640, 480 )
-__meta__ = {
-"_edit_lock_": true
-}
+region_rect = Rect2( -256, -240, 1632, 1392 )
 
 [node name="World" type="Node" parent="."]
 script = ExtResource( 3 )
