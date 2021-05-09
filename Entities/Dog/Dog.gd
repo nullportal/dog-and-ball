@@ -22,6 +22,7 @@ onready var pickupArea = $PickupArea
 onready var aggroArea = $AggroArea
 onready var attackArea = $AttackArea
 onready var combat = $Combat
+onready var healthDisplay = $HealthDisplay
 
 var focus_map = {
 	'player': {

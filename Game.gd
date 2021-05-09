@@ -21,7 +21,11 @@ func damage_target(target, amount):
 		target.combat.hurt()
 
 	target.health.reduce(amount)
-	print(target.name, ' damaged for ', amount, ' points')
 	if target.health.HEALTH_POINTS <= 0:
 		print(target.name, ' destroyed!')
 		target.queue_free()
+
+func health_changed(node, oldHealth, newHealth):
+	if node.healthDisplay:
+		print('%s health changed from %s to %s'%[node.name, oldHealth, newHealth])
+		node.healthDisplay.update_display(newHealth)

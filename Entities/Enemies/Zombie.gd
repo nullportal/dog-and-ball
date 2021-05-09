@@ -18,6 +18,7 @@ onready var aggroArea = $AggroArea
 onready var attackArea = $AttackArea
 onready var health = $Health
 onready var combat = $Combat
+onready var healthDisplay = $HealthDisplay
 
 var follow_distances = {
 	'Player': 28,
