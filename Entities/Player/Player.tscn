@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Entities/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://UI/Reticle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/PickupArea.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Health.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Entities/Combat.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 12.0
@@ -22,6 +24,7 @@ margin_left = -8.0
 margin_top = -16.0
 margin_right = 8.0
 margin_bottom = 16.0
+color = Color( 0.909804, 0.87451, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,10 +32,19 @@ __meta__ = {
 [node name="Health" parent="." instance=ExtResource( 4 )]
 HEALTH_POINTS = 10
 
+[node name="HealthDisplay" parent="." instance=ExtResource( 6 )]
+
+[node name="Healthbar" parent="HealthDisplay" index="0"]
+max_value = 10.0
+value = 10.0
+
+[node name="Combat" parent="." instance=ExtResource( 5 )]
+
 [node name="PickupArea" parent="." instance=ExtResource( 3 )]
 scale = Vector2( 1.15, 1.15 )
 
 [node name="CollisionShape2D" parent="PickupArea" index="0"]
 scale = Vector2( 1.5, 1.5 )
 
+[editable path="HealthDisplay"]
 [editable path="PickupArea"]

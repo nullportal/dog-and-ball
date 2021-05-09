@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Entities/Enemies/Zombie.gd" type="Script" id=1]
 [ext_resource path="res://Entities/AggroArea.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/Health.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/AttackArea.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Entities/Combat.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
@@ -28,7 +29,7 @@ margin_left = -8.0
 margin_top = -16.0
 margin_right = 8.0
 margin_bottom = 16.0
-color = Color( 1, 0, 0, 1 )
+color = Color( 0.772549, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -36,6 +37,14 @@ __meta__ = {
 [node name="Health" parent="." instance=ExtResource( 3 )]
 HEALTH_POINTS = 10
 
+[node name="HealthDisplay" parent="." instance=ExtResource( 6 )]
+
+[node name="Healthbar" parent="HealthDisplay" index="0"]
+max_value = 10.0
+value = 10.0
+
 [node name="Combat" parent="." instance=ExtResource( 5 )]
 ATTACK_DAMAGE = 5.0
 ATTACK_COOLDOWN = 3.0
+
+[editable path="HealthDisplay"]

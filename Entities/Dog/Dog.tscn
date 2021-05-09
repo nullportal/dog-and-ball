@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Entities/Dog/Dog.gd" type="Script" id=1]
 [ext_resource path="res://Entities/PickupArea.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Entities/NoticeArea.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/AttackArea.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Entities/Combat.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.209
@@ -33,6 +34,7 @@ margin_left = -9.0
 margin_top = -9.0
 margin_right = 9.0
 margin_bottom = 9.0
+color = Color( 0.533333, 0.262745, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -40,9 +42,11 @@ __meta__ = {
 [node name="Health" parent="." instance=ExtResource( 3 )]
 HEALTH_POINTS = 100
 
+[node name="HealthDisplay" parent="." instance=ExtResource( 8 )]
+
 [node name="Combat" parent="." instance=ExtResource( 7 )]
 ATTACK_DAMAGE = 1.0
-ATTACK_COOLDOWN = 0.5
+ATTACK_COOLDOWN = 0.8
+KNOCKBACK_FORCE = 400
 
 [editable path="Health"]
-[editable path="Combat"]

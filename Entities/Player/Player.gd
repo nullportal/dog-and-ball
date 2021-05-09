@@ -20,6 +20,8 @@ var aim_vec = Vector2.ZERO
 onready var reticle = $Reticle
 onready var pickupArea = $PickupArea
 onready var health = $Health
+onready var healthDisplay = $HealthDisplay
+onready var combat = $Combat
 onready var dog = get_node_or_null('/root/Game/World/Dog')
 
 func _ready():
