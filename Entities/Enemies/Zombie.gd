@@ -56,6 +56,7 @@ func find_focus():
 	return self.focus
 
 func follow(target):
+	#self.modulate = Color( 100, 100, 100, 1 )
 	if target && state == FOLLOW:
 		var follow_distance = self.follow_distances[target.name]
 		var distance_to_target = self.position.distance_to(target.position)

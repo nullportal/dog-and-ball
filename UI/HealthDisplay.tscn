@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://UI/bar-green.png" type="Texture" id=1]
+[ext_resource path="res://UI/healthbar-hi.png" type="Texture" id=1]
 [ext_resource path="res://UI/HealthDisplay.gd" type="Script" id=2]
+[ext_resource path="res://UI/healthbar-frame.png" type="Texture" id=3]
 
 [node name="HealthDisplay" type="Node2D" groups=[
 "UI",
@@ -22,3 +23,7 @@ texture_progress = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -20 )
+texture = ExtResource( 3 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bar-yellow.png-3d9f70e139dcecc7ffde28893cbf7eb8.stex"
+path="res://.import/dog-Sheet.png-d55ebef59ef245694f0a3c3dc1ad87c3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/bar-yellow.png"
-dest_files=[ "res://.import/bar-yellow.png-3d9f70e139dcecc7ffde28893cbf7eb8.stex" ]
+source_file="res://Entities/Dog/dog-Sheet.png"
+dest_files=[ "res://.import/dog-Sheet.png-d55ebef59ef245694f0a3c3dc1ad87c3.stex" ]
 
 [params]
 

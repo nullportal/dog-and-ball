@@ -4,9 +4,10 @@ extends Node2D
 # FIXME Consider moving this whole dealie into Health
 #
 
-var greenBar = preload("res://UI/bar-green.png")
-var yellowBar = preload("res://UI/bar-yellow.png")
-var redBar = preload("res://UI/bar-red.png")
+# TODO switch to sheet
+var hiBar = preload("res://UI/healthbar-hi.png")
+var midBar = preload("res://UI/healthbar-mid.png")
+var lowBar = preload("res://UI/healthbar-low.png")
 
 onready var healthbar = $Healthbar
 
@@ -15,11 +16,11 @@ func _ready():
   hide()
 
 func update_display(n):
-  healthbar.texture_progress = greenBar
+  healthbar.texture_progress = hiBar
   if n < healthbar.max_value * 0.75:
-      healthbar.texture_progress = yellowBar
+      healthbar.texture_progress = midBar
   if n < healthbar.max_value * 0.35:
-      healthbar.texture_progress = redBar
+      healthbar.texture_progress = lowBar
   if n < healthbar.max_value:
       show()
   healthbar.value = n

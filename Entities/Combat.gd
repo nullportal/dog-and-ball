@@ -14,20 +14,21 @@ func _enter_tree():
 	# FIXME Load this up in a config at some point,
 	# but this is the const convention I'm assuming for now.
 	self.HURT_PROPERTIES = {
-		'spritePath': NodePath(String(get_parent().get_path())+'/ColorRect'),
-		'spriteProperty': 'color',
+		'spritePath': NodePath(String(get_parent().get_path())+'/Sprite'),
+		'spriteProperty': 'modulate',
 		'effects': ['pain-flash']
 	}
 
 func _ready():
-	print('%s is set up for combat: %s' % [
-		get_parent().name,
-		{
-			'ATTACK_DAMAGE': _attack.ATTACK_DAMAGE,
-			'ATTACK_COOLDOWN': _attack.ATTACK_COOLDOWN,
-			'HURT_PROPERTIES': _hurt.HURT_PROPERTIES
-		}
-	])
+	pass
+	#print('%s is set up for combat: %s' % [
+	#	get_parent().name,
+	#	{
+	#		'ATTACK_DAMAGE': _attack.ATTACK_DAMAGE,
+	#		'ATTACK_COOLDOWN': _attack.ATTACK_COOLDOWN,
+	#		'HURT_PROPERTIES': _hurt.HURT_PROPERTIES
+	#	}
+	#])
 
 func attack(target):
 	_attack.damage(parent, target)

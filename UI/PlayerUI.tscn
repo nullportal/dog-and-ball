@@ -12,10 +12,9 @@ __meta__ = {
 }
 
 [node name="player-ui" type="Sprite" parent="."]
-position = Vector2( 32, 32 )
+position = Vector2( 16, 16 )
 texture = ExtResource( 2 )
 
 [node name="HeldItem" type="Sprite" parent="."]
-position = Vector2( 32, 32 )
-scale = Vector2( 2, 2 )
+position = Vector2( 16, 16 )
 texture = ExtResource( 1 )
