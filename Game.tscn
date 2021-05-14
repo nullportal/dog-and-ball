@@ -23,10 +23,10 @@ region_rect = Rect2( -256, -240, 1632, 1392 )
 script = ExtResource( 3 )
 
 [node name="Dog" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 256, 384 )
+position = Vector2( -160, 216 )
 
 [node name="Player" parent="World" instance=ExtResource( 1 )]
-position = Vector2( 64, 224 )
+position = Vector2( 32, 208 )
 
 [node name="Zombie" parent="World" instance=ExtResource( 5 )]
 position = Vector2( 536, 488 )
@@ -41,7 +41,7 @@ position = Vector2( 600, 200 )
 position = Vector2( 384, -8 )
 
 [node name="Zombie8" parent="World" instance=ExtResource( 5 )]
-position = Vector2( 220.797, 152.567 )
+position = Vector2( 160, 104 )
 
 [node name="Zombie5" parent="World" instance=ExtResource( 5 )]
 position = Vector2( 752, -32 )
@@ -56,11 +56,8 @@ position = Vector2( 776, 440 )
 script = ExtResource( 7 )
 
 [node name="Camera2D" type="Camera2D" parent="UI"]
-position = Vector2( 320, 240 )
+position = Vector2( 160, 120 )
 current = true
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="PlayerUI" parent="UI" instance=ExtResource( 9 )]
 
