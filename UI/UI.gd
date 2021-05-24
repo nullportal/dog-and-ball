@@ -1,14 +1,9 @@
 extends CanvasLayer
 
-onready var camera = $Camera2D
 onready var player_ui = $PlayerUI
 onready var player_held_item = get_node('./PlayerUI/HeldItem')
 onready var dog_ui = $DogUI
 onready var dog_held_item = get_node('./DogUI/HeldItem')
-
-func move_camera(pos):
-	if camera.position != pos:
-		camera.position = pos
 
 func update_held_item(who, item):
 	print('updating %s held item to %s' % [who.name, _desc(item)])

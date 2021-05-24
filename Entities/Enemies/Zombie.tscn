@@ -43,6 +43,7 @@ graph_offset = Vector2( -40, -63 )
 "Enemies",
 "Zombies",
 ]]
+collision_mask = 3
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

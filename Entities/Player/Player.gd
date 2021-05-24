@@ -2,7 +2,6 @@ extends KinematicBody2D
 
 signal BALL_THROWN(from, direction)
 signal COMMAND(command_name, context)
-signal MOVED(position)
 
 export var HEALTH_POINTS = 10
 export var ACCELERATION = 500
@@ -42,7 +41,6 @@ func _physics_process(delta):
 	match state:
 		MOVE:
 			move_state(delta)
-			emit_signal('MOVED', self.global_position)
 
 func _input(event):
 	if event is InputEventMouseMotion || event is InputEventJoypadMotion:
