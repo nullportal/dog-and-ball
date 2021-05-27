@@ -41,6 +41,9 @@ func damage_target(fromNode, toNode, amount):
 		var knockback = fromNode.position.direction_to(toNode.position)
 		toNode.set_knockback(knockback * fromNode.combat.KNOCKBACK_FORCE)
 
+	if toNode.health.HEALTH_REGEN:
+		toNode.health.reset_health_regen_timer(toNode.health.HEALTH_REGEN_WAIT)
+
 func health_changed(node, oldHealth, newHealth):
 	if node.healthDisplay:
 		print('%s health changed from %s to %s'%[node.name, oldHealth, newHealth])

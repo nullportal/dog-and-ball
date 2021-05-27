@@ -33,7 +33,11 @@ scale = Vector2( 0.75, 0.75 )
 [node name="AttackArea" parent="." instance=ExtResource( 6 )]
 
 [node name="Health" parent="." instance=ExtResource( 3 )]
+MAX_HEALTH = 100
 HEALTH_POINTS = 100
+HEALTH_REGEN = true
+HEALTH_REGEN_WAIT = 5
+HEALTH_REGEN_AMOUNT = 25
 
 [node name="HealthDisplay" parent="." instance=ExtResource( 8 )]
 

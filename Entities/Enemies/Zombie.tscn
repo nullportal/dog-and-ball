@@ -61,7 +61,7 @@ texture = ExtResource( 7 )
 hframes = 7
 
 [node name="Health" parent="." instance=ExtResource( 3 )]
-HEALTH_POINTS = 10
+HEALTH_POINTS = 3
 
 [node name="HealthDisplay" parent="." instance=ExtResource( 6 )]
 visible = false

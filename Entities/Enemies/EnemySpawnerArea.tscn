@@ -10,6 +10,7 @@ radius = 256.125
 ]]
 collision_layer = 8
 script = ExtResource( 1 )
+SPAWN_INTERVAL = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 self_modulate = Color( 0.984314, 0, 0.831373, 1 )

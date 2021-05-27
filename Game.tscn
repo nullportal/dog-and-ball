@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Dog/Dog.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://UI/PlayerUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/DogUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Entities/Enemies/EnemyOrchestrator.gd" type="Script" id=11]
+[ext_resource path="res://Entities/Enemies/Zombie.tscn" type="PackedScene" id=12]
 
 [node name="Game" type="Node"]
 script = ExtResource( 4 )
@@ -31,6 +32,9 @@ region_rect = Rect2( -256, -240, 1632, 1392 )
 position = Vector2( 64, 320 )
 collision_mask = 2147483651
 
+[node name="Health" parent="World/Dog" index="5"]
+HEALTH_REGEN_AMOUNT = 10
+
 [node name="Player" parent="World" instance=ExtResource( 1 )]
 position = Vector2( 64, 256 )
 collision_mask = 1
@@ -38,11 +42,20 @@ MAX_SPEED = 64
 
 [node name="PlayerCameraArea" parent="World/Player" instance=ExtResource( 5 )]
 
+[node name="PlayerCamera" parent="World/Player/PlayerCameraArea" index="1"]
+visible = true
+
 [node name="EnemySpawnerArea" parent="World" instance=ExtResource( 8 )]
-position = Vector2( -320, 0 )
+position = Vector2( -392, 0 )
 
 [node name="EnemySpawnerArea4" parent="World" instance=ExtResource( 8 )]
-position = Vector2( 448, 512 )
+position = Vector2( 496, 520 )
+
+[node name="Zombie" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 0, 392 )
+
+[node name="Zombie2" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 56, 432 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
@@ -51,4 +64,6 @@ script = ExtResource( 7 )
 
 [node name="DogUI" parent="UI" instance=ExtResource( 10 )]
 
+[editable path="World/Dog"]
+[editable path="World/Dog/Health"]
 [editable path="World/Player/PlayerCameraArea"]

@@ -16,5 +16,6 @@ func on_spawner_visible(spawner):
 	spawner.stop_spawning()
 
 func attach_spawner(spawner):
-	print('Initialising spawner %s' % [spawner.name])
+	print('enemyOrchestrator initialising spawner %s' % [spawner.name])
+	spawner.start_spawning()
 	spawners.append(spawner)
