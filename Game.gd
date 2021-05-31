@@ -48,3 +48,6 @@ func health_changed(node, oldHealth, newHealth):
 	if node.healthDisplay:
 		print('%s health changed from %s to %s'%[node.name, oldHealth, newHealth])
 		node.healthDisplay.update_display(newHealth)
+
+func health_depleted(overkill, node):
+	enemyOrchestrator.on_health_depleted(overkill, node)

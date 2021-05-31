@@ -57,6 +57,18 @@ position = Vector2( 0, 392 )
 [node name="Zombie2" parent="World" instance=ExtResource( 12 )]
 position = Vector2( 56, 432 )
 
+[node name="Zombie3" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 32, 392 )
+
+[node name="Zombie4" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 64, 392 )
+
+[node name="Zombie5" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 32, 424 )
+
+[node name="Zombie6" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 0, 421 )
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 

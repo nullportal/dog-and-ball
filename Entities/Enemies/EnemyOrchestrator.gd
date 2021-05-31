@@ -15,6 +15,9 @@ func on_spawner_hidden(spawner):
 func on_spawner_visible(spawner):
 	spawner.stop_spawning()
 
+func on_health_depleted(overkill, node):
+	print('enemyOrchestrator handling overkill %s for of %s' % [overkill, node.name]) # TODO
+
 func attach_spawner(spawner):
 	print('enemyOrchestrator initialising spawner %s' % [spawner.name])
 	spawner.start_spawning()
