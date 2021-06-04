@@ -26,8 +26,9 @@ settings/fps/force_fps=60
 window/size/width=384
 window/size/height=240
 window/size/resizable=false
-window/size/fullscreen=true
-window/stretch/mode="2d"
+window/size/test_width=768
+window/size/test_height=480
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [importer_defaults]
@@ -119,6 +120,8 @@ throw={
 2d_physics/layer_1="world"
 2d_physics/layer_2="player"
 2d_physics/layer_3="ball"
+2d_physics/layer_4="spawners"
+2d_physics/layer_5="enemies"
 
 [logging]
 
@@ -133,6 +136,7 @@ file_logging/enable_file_logging=true
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/driver/fallback_to_gles2=true
 2d/snapping/use_gpu_pixel_snap=true
 quality/filters/anisotropic_filter_level=1
 environment/default_environment="res://default_env.tres"

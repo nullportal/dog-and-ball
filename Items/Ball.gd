@@ -60,6 +60,7 @@ func pickup_area_overlapping(my_area):
 func bounce(collision):
 	state = ROLLING
 	velocity = velocity.bounce(collision.normal)
+	FRICTION *= 4
 
 func rolling(delta):
 	velocity = velocity.move_toward(

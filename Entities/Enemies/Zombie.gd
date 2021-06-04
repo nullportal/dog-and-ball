@@ -9,9 +9,18 @@ enum {
 	IDLE,
 	ATTACK,
 }
+enum STATE {
+	IDLE,
+	FOLLOW,
+	ATTACK,
+}
 
-var focus = null
-var state = FOLLOW
+var focus = null setget set_focus, get_focus
+func set_focus(f):
+	focus = f
+func get_focus():
+	return focus
+var state = IDLE
 var velocity = Vector2.ZERO
 # FIXME Move kb logic to general location, so can be applied universally
 var knockbackVelocity = Vector2.ZERO setget set_knockback

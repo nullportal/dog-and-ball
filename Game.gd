@@ -4,15 +4,27 @@ onready var player = get_node('World/Player')
 onready var dog = get_node_or_null('World/Dog')
 onready var world = $World
 onready var ui = get_node('UI')
+onready var enemyOrchestrator = get_node('EnemyOrchestrator')
+
+func _init():
+	randomize() # Init random seed using time
 
 func _ready():
 	player.connect('BALL_THROWN', world, 'ball_thrown')
-	player.connect('MOVED', ui, 'move_camera')
 	world.connect('UPDATE_HELD_ITEM', ui, 'update_held_item') # For take
 
 	if dog:
 		player.connect('COMMAND', dog, 'command')
 		dog.connect('GIVE', world, 'give')
+
+func on_spawner_ready(spawner):
+	enemyOrchestrator.call_deferred('attach_spawner', spawner)
+func on_spawner_visible(spawner):
+	enemyOrchestrator.on_spawner_visible(spawner)
+func on_spawner_hidden(spawner):
+	enemyOrchestrator.on_spawner_hidden(spawner)
+func on_enemy_spawned(enemy):
+	enemyOrchestrator.on_enemy_spawned(enemy)
 
 func damage_target(fromNode, toNode, amount):
 	if !toNode || !toNode.health:
@@ -29,7 +41,18 @@ func damage_target(fromNode, toNode, amount):
 		var knockback = fromNode.position.direction_to(toNode.position)
 		toNode.set_knockback(knockback * fromNode.combat.KNOCKBACK_FORCE)
 
+	if toNode.health.HEALTH_REGEN:
+		toNode.health.reset_health_regen_timer(toNode.health.HEALTH_REGEN_WAIT)
+
 func health_changed(node, oldHealth, newHealth):
 	if node.healthDisplay:
 		print('%s health changed from %s to %s'%[node.name, oldHealth, newHealth])
 		node.healthDisplay.update_display(newHealth)
+
+func health_depleted(overkill, node):
+	enemyOrchestrator.on_health_depleted(overkill, node)
+
+func eat(eater, eated):
+	eater.health.change(eated.HEALING_POINTS)
+	eated.queue_free()
+	print('%s ate %s for %sHP' % [eater.name, eated.name, eated.HEALING_POINTS])

@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal GIVE(item, from, to)
+signal EAT(item, me)
 
 export var MAX_SPEED = 128
 export var SLUG = 'dog'
@@ -37,7 +38,17 @@ var focus_map = {
 		'follow_distance': 8,
 		'allure': 500,
 	},
+	'bones': {
+		'follow_distance': 1,
+		'allure': null,
+	},
 }
+
+func _ready():
+	var conn
+	conn = self.connect('EAT', get_node('/root/Game'), 'eat')
+	if conn != 0:
+		assert(false, 'Failed to connect signal')
 
 func _physics_process(_delta):
 	var foci = find_foci(noticeArea)
@@ -53,8 +64,12 @@ func _physics_process(_delta):
 			follow(self.focus)
 
 	if self.focus.is_in_group('Enemies'):
-		if can_attack(self.focus):
+		if can_reach(self.focus):
 			attack(self.focus)
+
+	if self.focus.is_in_group('Food'):
+		if can_reach(self.focus):
+			eat(self.focus)
 
 func find_foci(area):
 	var noticed = area.get_overlapping_bodies()
@@ -72,7 +87,17 @@ func rank_foci(nodes):
 	var foci = []
 	for node in nodes:
 		var distance = self.global_position.distance_to(node.global_position)
-		var allure = focus_map[node.SLUG].allure
+		var deets = focus_map[node.SLUG]
+		if !deets:
+			continue
+
+		var allure = deets.allure
+		# If no innate allure, provide it programatically
+		if allure == null && ['bones'].has(node.SLUG):
+			if !node.is_edible():
+				continue
+			allure = node.HEALING_POINTS / (health.MAX_HEALTH - health.HEALTH_POINTS)
+
 		var entry = {
 			'sort_key': allure - distance,
 			'node': node,
@@ -123,11 +148,14 @@ func give(item_name):
 func retrieve(_item):
 	self.focus = player
 
-func can_attack(focus):
+func can_reach(focus):
 	return attackArea.overlaps_body(focus)
 
 func attack(target):
 	combat.attack(target)
+
+func eat(target):
+	emit_signal('EAT', self, target)
 
 # NOTE Requires dict with 'sort_key'
 func _sort_nodes(a, b):
