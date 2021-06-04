@@ -51,3 +51,8 @@ func health_changed(node, oldHealth, newHealth):
 
 func health_depleted(overkill, node):
 	enemyOrchestrator.on_health_depleted(overkill, node)
+
+func eat(eater, eated):
+	eater.health.change(eated.HEALING_POINTS)
+	eated.queue_free()
+	print('%s ate %s for %sHP' % [eater.name, eated.name, eated.HEALING_POINTS])

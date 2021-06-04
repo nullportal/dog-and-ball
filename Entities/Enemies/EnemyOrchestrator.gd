@@ -1,6 +1,10 @@
 extends Node
 
+export var HEALTH_DROP_CHANCE = 0.25
+
+onready var Bones = preload("res://Items/Bones.tscn")
 onready var player = get_node('/root/Game/World/Player') # FIXME Do better
+onready var world = get_node('/root/Game/World')
 onready var spawners = []
 onready var enemies = []
 
@@ -17,6 +21,11 @@ func on_spawner_visible(spawner):
 
 func on_health_depleted(overkill, node):
 	print('enemyOrchestrator handling overkill %s for of %s' % [overkill, node.name]) # TODO
+	if rand_range(0, 1) <= HEALTH_DROP_CHANCE:
+		var bones = Bones.instance()
+		bones.global_position = node.global_position
+		world.add_child(bones)
+
 
 func attach_spawner(spawner):
 	print('enemyOrchestrator initialising spawner %s' % [spawner.name])

@@ -35,7 +35,6 @@ scale = Vector2( 0.75, 0.75 )
 [node name="Health" parent="." instance=ExtResource( 3 )]
 MAX_HEALTH = 100
 HEALTH_POINTS = 100
-HEALTH_REGEN = true
 HEALTH_REGEN_WAIT = 5
 HEALTH_REGEN_AMOUNT = 25
 
@@ -43,8 +42,8 @@ HEALTH_REGEN_AMOUNT = 25
 
 [node name="Combat" parent="." instance=ExtResource( 7 )]
 ATTACK_DAMAGE = 1.0
-ATTACK_COOLDOWN = 0.8
-KNOCKBACK_FORCE = 400
+ATTACK_COOLDOWN = 0.7
+KNOCKBACK_FORCE = 450
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 9 )

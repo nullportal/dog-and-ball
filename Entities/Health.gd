@@ -28,14 +28,17 @@ func _process(_delta):
 			emit_signal('HEALTH_CHANGED', healthOwner, healths['old_health'], healths['new_health'])
 			timer.start(self.HEALTH_REGEN_WAIT)
 
-func reduce(n):
+func change(n):
 	var old_health = self.HEALTH_POINTS
-	self.HEALTH_POINTS -= n
+	self.HEALTH_POINTS += n
 	var new_health = self.HEALTH_POINTS
 
 	emit_signal('HEALTH_CHANGED', healthOwner, old_health, new_health)
 	if new_health <= 0:
 		emit_signal('HEALTH_DEPLETED', abs(old_health - new_health), healthOwner)
+
+func reduce(n):
+	change(-n)
 
 func reset_health_regen_timer(wait_time):
 	timer.start(wait_time)
