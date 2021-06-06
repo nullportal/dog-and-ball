@@ -18,6 +18,7 @@ var velocity = Vector2.ZERO
 
 onready var player = get_node('/root/Game/World/Player')
 onready var health = $Health
+onready var mood = $Mood
 onready var noticeArea = $NoticeArea
 onready var pickupArea = $PickupArea
 onready var aggroArea = $AggroArea
@@ -29,18 +30,22 @@ var focus_map = {
 	'player': {
 		'follow_distance': 64,
 		'allure': 10,
+		'fear': 0.0,
 	},
 	'zombie': {
 		'follow_distance': 32,
 		'allure': 1,
+		'fear': 10.0,
 	},
 	'ball': {
 		'follow_distance': 8,
 		'allure': 500,
+		'fear': 0.0,
 	},
 	'bones': {
 		'follow_distance': 1,
 		'allure': null,
+		'fear': 0.0,
 	},
 }
 
@@ -54,6 +59,8 @@ func _physics_process(_delta):
 	var foci = find_foci(noticeArea)
 	if foci.size() > 0:
 		self.focus = find_focus(foci)
+
+	mood.set_mood(mood.AFRAID, find_fear(foci))
 
 	# Prevent crash when tracking destroyed targets
 	if !is_instance_valid(self.focus):
@@ -119,6 +126,16 @@ func find_focus(nodes):
 		print('%s focus change to %s' % [self.SLUG, focus.SLUG])
 
 	return focus
+
+func find_fear(nodes):
+	var fear = 0.0
+	for node in nodes:
+		var deets = focus_map[node.SLUG]
+		if !deets:
+			continue
+
+		fear += deets['fear']
+	return fear
 
 func follow(target):
 	if !target:

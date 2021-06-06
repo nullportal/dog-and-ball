@@ -44,6 +44,18 @@ func damage_target(fromNode, toNode, amount):
 	if toNode.health.HEALTH_REGEN:
 		toNode.health.reset_health_regen_timer(toNode.health.HEALTH_REGEN_WAIT)
 
+func mood_changed(node, mood, oldValue, newValue):
+	if node.has_node('MoodDisplay'):
+		pass # FIXME Unimplemented instance local moods in scene
+	if node.SLUG == 'dog':
+		ui.get_node('DogUI/MoodDisplay').update_mood(node.mood.MOOD_NAMES[mood], oldValue, newValue)
+
+func mood_limit_reached(node, mood): # FIXME '_maxed' better name for this
+	pass # TODO
+func mood_zeroed(node, mood):
+	pass # TODO
+
+# TODO Like this but for mood
 func health_changed(node, oldHealth, newHealth):
 	if node.healthDisplay:
 		print('%s health changed from %s to %s'%[node.name, oldHealth, newHealth])

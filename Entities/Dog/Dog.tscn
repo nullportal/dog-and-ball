@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Entities/Dog/Dog.gd" type="Script" id=1]
 [ext_resource path="res://Entities/PickupArea.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Entities/Combat.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Entities/Dog/dog-Sheet.png" type="Texture" id=9]
+[ext_resource path="res://Entities/Mood.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 2.44885
@@ -39,6 +40,8 @@ HEALTH_REGEN_WAIT = 5
 HEALTH_REGEN_AMOUNT = 25
 
 [node name="HealthDisplay" parent="." instance=ExtResource( 8 )]
+
+[node name="Mood" parent="." instance=ExtResource( 10 )]
 
 [node name="Combat" parent="." instance=ExtResource( 7 )]
 ATTACK_DAMAGE = 1.0
