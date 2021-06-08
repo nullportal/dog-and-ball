@@ -12,10 +12,7 @@ func pain():
 
 func _setup_pain_flash():
 	var sprite = get_node(HURT_PROPERTIES.spritePath)
-	if (sprite is ColorRect):
-		print('Setting up _setup_pain_flash_colorect for %', sprite.get_parent().name)
-		_setup_pain_flash_colorect()
-	elif (sprite is Sprite):
+	if (sprite is Sprite):
 		print('Setting up _setup_pain_flash_sprite for %', sprite.get_parent().name)
 		_setup_pain_flash_sprite()
 	else:
@@ -29,8 +26,6 @@ func _setup_pain_flash_sprite():
 	var spritePropertyPath = '{path}:{property}'.format(
 		{'path': String(sprite.get_path()), 'property': spriteProperty}
 	)
-
-	var spritePropertyOriginalValue = sprite.modulate
 
 	add_child(animationPlayer)
 
@@ -47,31 +42,3 @@ func _setup_pain_flash_sprite():
 	painFlash.track_insert_key(trackIdx, 0.01, white)
 	painFlash.track_insert_key(trackIdx, 0.05, black)
 	painFlash.track_insert_key(trackIdx, 0.15, original)
-
-func _setup_pain_flash_colorect():
-	var spriteProperty = HURT_PROPERTIES.spriteProperty # Colo
-	var sprite = get_node(HURT_PROPERTIES.spritePath)
-	var effect = HURT_PROPERTIES.effects
-	if spriteProperty != 'color':
-		assert(false, 'Unimplemented hurt target property %s' % spriteProperty)
-	if effect == ['pain-flash']: # XXX This will break if multiple effects
-		effect = effect[0]
-	else:
-		assert(false, 'Unimplemented hurt effect %s' % effect)
-
-	var spritePropertyPath = '{path}:{property}'.format(
-		{'path': String(sprite.get_path()), 'property': spriteProperty}
-	)
-	var spritePropertyOriginalValue:Color = sprite.color
-
-	add_child(animationPlayer)
-
-	var painFlash = Animation.new()
-	animationPlayer.add_animation('pain_flash', painFlash)
-
-	var trackIdx = painFlash.add_track(Animation.TYPE_VALUE) # ??
-	painFlash.track_set_path(trackIdx, spritePropertyPath)
-	painFlash.length = 0.04
-	painFlash.track_insert_key(trackIdx, 0.0, spritePropertyOriginalValue)
-	painFlash.track_insert_key(trackIdx, 0.035, Color.white)
-	painFlash.track_insert_key(trackIdx, 0.04, spritePropertyOriginalValue)

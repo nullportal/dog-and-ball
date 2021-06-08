@@ -42,6 +42,10 @@ HEALTH_REGEN_AMOUNT = 25
 [node name="HealthDisplay" parent="." instance=ExtResource( 8 )]
 
 [node name="Mood" parent="." instance=ExtResource( 10 )]
+weights = {
+1: 0.5,
+2: 1.0
+}
 
 [node name="Combat" parent="." instance=ExtResource( 7 )]
 ATTACK_DAMAGE = 1.0
@@ -53,3 +57,4 @@ texture = ExtResource( 9 )
 hframes = 4
 
 [editable path="Health"]
+[editable path="Mood"]

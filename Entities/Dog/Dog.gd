@@ -61,6 +61,7 @@ func _physics_process(_delta):
 		self.focus = find_focus(foci)
 
 	mood.set_mood(mood.AFRAID, find_fear(foci))
+	mood.set_mood(mood.ANGRY, find_anger(foci))
 
 	# Prevent crash when tracking destroyed targets
 	if !is_instance_valid(self.focus):
@@ -127,15 +128,24 @@ func find_focus(nodes):
 
 	return focus
 
-func find_fear(nodes):
+func find_fear(nodes, personal_space_dist = 50):
 	var fear = 0.0
 	for node in nodes:
 		var deets = focus_map[node.SLUG]
 		if !deets:
 			continue
 
-		fear += deets['fear']
+		var dist = global_position.distance_to(node.global_position)
+		if dist == 0:
+			continue
+
+		fear += (personal_space_dist / dist) * deets['fear']
 	return fear
+
+func find_anger(nodes):
+	var anger = find_fear(nodes)
+
+	return anger
 
 func follow(target):
 	if !target:
