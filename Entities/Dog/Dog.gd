@@ -26,6 +26,9 @@ onready var attackArea = $AttackArea
 onready var combat = $Combat
 onready var healthDisplay = $HealthDisplay
 
+var enemy_groups = [
+	'Enemies',
+]
 var focus_map = {
 	'player': {
 		'follow_distance': 64,
@@ -40,12 +43,12 @@ var focus_map = {
 	'ball': {
 		'follow_distance': 8,
 		'allure': 500,
-		'fear': 0.0,
+		'fear': null,
 	},
 	'bones': {
 		'follow_distance': 1,
 		'allure': null,
-		'fear': 0.0,
+		'fear': null,
 	},
 }
 
@@ -71,13 +74,19 @@ func _physics_process(_delta):
 		FOLLOW:
 			follow(self.focus)
 
-	if self.focus.is_in_group('Enemies'):
+	if is_enemy(self.focus):
 		if can_reach(self.focus):
 			attack(self.focus)
 
 	if self.focus.is_in_group('Food'):
 		if can_reach(self.focus):
 			eat(self.focus)
+
+func is_enemy(node):
+	for group in enemy_groups:
+		if node.is_in_group(group):
+			return true
+	return false
 
 func find_foci(area):
 	var noticed = area.get_overlapping_bodies()
@@ -104,7 +113,11 @@ func rank_foci(nodes):
 		if allure == null && ['bones'].has(node.SLUG):
 			if !node.is_edible():
 				continue
-			allure = node.HEALING_POINTS / (health.MAX_HEALTH - health.HEALTH_POINTS)
+			var missing_health = (health.MAX_HEALTH - health.HEALTH_POINTS)
+			if missing_health > 0:
+				allure = node.HEALING_POINTS / missing_health
+			else:
+				allure = missing_health
 
 		var entry = {
 			'sort_key': allure - distance,
@@ -129,21 +142,35 @@ func find_focus(nodes):
 	return focus
 
 func find_fear(nodes, personal_space_dist = 50):
+	var health_insecurity = (health.MAX_HEALTH / health.HEALTH_POINTS)
 	var fear = 0.0
 	for node in nodes:
 		var deets = focus_map[node.SLUG]
-		if !deets:
+		if !deets || !deets['fear']:
 			continue
 
 		var dist = global_position.distance_to(node.global_position)
 		if dist == 0:
 			continue
 
-		fear += (personal_space_dist / dist) * deets['fear']
-	return fear
+		# TODO Factor in fear - shouldn't top out easily if HP > 1/2
 
-func find_anger(nodes):
-	var anger = find_fear(nodes)
+		var closeness = (personal_space_dist / dist)
+		fear += closeness * deets['fear']
+
+	return fear + health_insecurity
+
+func find_anger(nodes, damage_dealt_trigger = 6):
+	var current_attack_target = combat.get_damage_target()
+	if is_instance_valid(current_attack_target) && current_attack_target.SLUG == 'player':
+		return 0
+
+	# FIXME Damage *received* should count towards anger as well, but only until
+	# an inverse trigger, after which it contributes to fear ...?
+
+	# FIXME Not sure if health boldness works here... plays out artificially when dog regains HP suddenly
+	var health_boldness = (health.HEALTH_POINTS / (health.MAX_HEALTH / 0.5))
+	var anger = ((combat.get_damage_dealt() * 75) / damage_dealt_trigger) * health_boldness + 1
 
 	return anger
 
@@ -175,14 +202,49 @@ func give(item_name):
 func retrieve(_item):
 	self.focus = player
 
-func can_reach(focus):
-	return attackArea.overlaps_body(focus)
+func can_reach(target):
+	return attackArea.overlaps_body(target)
 
 func attack(target):
 	combat.attack(target)
 
 func eat(target):
 	emit_signal('EAT', self, target)
+
+func on_mood_maxed(m):
+	if m == mood.ANGRY:
+		enemy_groups.append('Player')
+		focus_map['player']['follow_distance'] /= 4
+		combat.ATTACK_COOLDOWN /= 2
+		combat.KNOCKBACK_FORCE *= 1.5
+	elif m == mood.AFRAID:
+		enemy_groups.remove(enemy_groups.find('Enemies', 0))
+		focus_map['player']['follow_distance'] /= 4
+		focus_map['player']['allure'] *= 10
+		focus_map['zombie']['fear'] *= 2
+		focus_map['zombie']['allure'] *= -1
+		health.HEALTH_REGEN = true
+	print('MOOD MAXED: ',mood.MOOD_NAMES[m])
+	print(enemy_groups)
+	print(focus_map)
+
+func on_mood_maxed_over(m):
+	if m == mood.ANGRY:
+		# FIXME This is not removing ...
+		enemy_groups.remove(enemy_groups.find('Player', 0))
+		focus_map['player']['follow_distance'] *= 4
+		combat.ATTACK_COOLDOWN *= 2
+		combat.KNOCKBACK_FORCE /= 1.5
+	elif m == mood.AFRAID:
+		enemy_groups.append('Enemies')
+		focus_map['player']['follow_distance'] *= 4
+		focus_map['player']['allure'] /= 10
+		focus_map['zombie']['fear'] /= 2
+		focus_map['zombie']['allure'] *= -1
+		health.HEALTH_REGEN = false
+	print('MOOD OVER: ',mood.MOOD_NAMES[m])
+	print(enemy_groups)
+	print(focus_map)
 
 # NOTE Requires dict with 'sort_key'
 func _sort_nodes(a, b):

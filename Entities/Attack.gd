@@ -12,5 +12,7 @@ func _ready():
 
 func damage(fromNode, toNode):
 	if !cooldown.time_left:
-		cooldown.start(self.ATTACK_COOLDOWN)
-		emit_signal('DAMAGE', fromNode, toNode, self.ATTACK_DAMAGE)
+		cooldown.start(get_parent().ATTACK_COOLDOWN)
+		emit_signal('DAMAGE', fromNode, toNode, get_parent().ATTACK_DAMAGE)
+
+		return self.ATTACK_DAMAGE

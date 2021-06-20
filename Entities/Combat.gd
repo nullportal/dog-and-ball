@@ -8,6 +8,14 @@ export var HURT_PROPERTIES := {'spritePath': null, 'spriteProperty': null, 'effe
 onready var _attack = $Attack
 onready var _hurt = $Hurt
 
+onready var damage_dealt = 0 setget , get_damage_dealt
+onready var damage_received = 0 setget , get_damage_received
+onready var damage_target = null setget , get_damage_target
+func get_damage_target(): return damage_target
+func get_damage_dealt(): return damage_dealt
+func get_damage_received(): return damage_received
+var attacking_timer = null
+
 onready var parent = get_parent()
 
 func _enter_tree():
@@ -20,18 +28,31 @@ func _enter_tree():
 	}
 
 func _ready():
-	pass
-	#print('%s is set up for combat: %s' % [
-	#	get_parent().name,
-	#	{
-	#		'ATTACK_DAMAGE': _attack.ATTACK_DAMAGE,
-	#		'ATTACK_COOLDOWN': _attack.ATTACK_COOLDOWN,
-	#		'HURT_PROPERTIES': _hurt.HURT_PROPERTIES
-	#	}
-	#])
+	self.attacking_timer = _init_timer(5.0, '_on_attacks_over')
 
-func attack(target):
-	_attack.damage(parent, target)
+# Track damage done and received in last interval
+# FIXME This may not be the best place for this ...
+func attack(target, engagement_length = 5.0):
+	var damage = _attack.damage(parent, target)
+
+	# For external getters
+	if damage: damage_dealt += damage
+	if is_instance_valid(target): damage_target = target
+
+	attacking_timer.start(engagement_length)
 
 func hurt():
 	_hurt.pain()
+
+# Just reset rolling damage for now
+func _on_attacks_over():
+	damage_dealt = 0
+
+func _init_timer(wait_time, callback):
+	var t = Timer.new()
+	t.set_one_shot(true)
+	t.set_wait_time(wait_time)
+	t.connect('timeout', self, callback)
+	add_child(t)
+
+	return t

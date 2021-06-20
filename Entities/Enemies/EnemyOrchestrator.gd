@@ -9,7 +9,6 @@ onready var spawners = []
 onready var enemies = []
 
 func on_enemy_spawned(enemy):
-	print('enemyOrchestrator handling %s spawn...' % enemy.name)
 	enemy.set_focus(player)
 	enemies.append(enemy)
 
@@ -20,7 +19,6 @@ func on_spawner_visible(spawner):
 	spawner.stop_spawning()
 
 func on_health_depleted(overkill, node):
-	print('enemyOrchestrator handling overkill %s for of %s' % [overkill, node.name]) # TODO
 	if rand_range(0, 1) <= HEALTH_DROP_CHANCE:
 		var bones = Bones.instance()
 		bones.global_position = node.global_position
@@ -28,6 +26,5 @@ func on_health_depleted(overkill, node):
 
 
 func attach_spawner(spawner):
-	print('enemyOrchestrator initialising spawner %s' % [spawner.name])
 	spawner.start_spawning()
 	spawners.append(spawner)

@@ -1,15 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/healthbar-frame.png" type="Texture" id=1]
-[ext_resource path="res://UI/fearbar.png" type="Texture" id=2]
-[ext_resource path="res://UI/bar-highlight.png" type="Texture" id=3]
-[ext_resource path="res://UI/ragebar.png" type="Texture" id=4]
+[ext_resource path="res://UI/rage-bubble.png" type="Texture" id=1]
+[ext_resource path="res://UI/bubble-highlight.png" type="Texture" id=2]
 [ext_resource path="res://UI/MoodDisplay.gd" type="Script" id=5]
+[ext_resource path="res://UI/fear-bubble.png" type="Texture" id=6]
 
 [node name="MoodDisplay" type="Node2D"]
 script = ExtResource( 5 )
 
-[node name="MoodbarsControl" type="Control" parent="."]
+[node name="MoodBubblesControl" type="Control" parent="."]
 margin_left = -16.0
 margin_right = 24.0
 margin_bottom = 40.0
@@ -17,23 +16,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FearBar" type="TextureProgress" parent="MoodbarsControl"]
+[node name="FearBubble" type="TextureProgress" parent="MoodBubblesControl"]
 margin_right = 40.0
 margin_bottom = 40.0
-texture_under = ExtResource( 1 )
-texture_over = ExtResource( 3 )
-texture_progress = ExtResource( 2 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 6 )
+fill_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RageBar" type="TextureProgress" parent="MoodbarsControl"]
-margin_top = 8.0
-margin_right = 40.0
-margin_bottom = 48.0
-texture_under = ExtResource( 1 )
-texture_over = ExtResource( 3 )
-texture_progress = ExtResource( 4 )
+[node name="RageBubble" type="TextureProgress" parent="MoodBubblesControl"]
+margin_left = 10.0
+margin_right = 50.0
+margin_bottom = 40.0
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
+fill_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }

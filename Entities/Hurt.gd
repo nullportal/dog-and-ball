@@ -13,7 +13,6 @@ func pain():
 func _setup_pain_flash():
 	var sprite = get_node(HURT_PROPERTIES.spritePath)
 	if (sprite is Sprite):
-		print('Setting up _setup_pain_flash_sprite for %', sprite.get_parent().name)
 		_setup_pain_flash_sprite()
 	else:
 		assert(false, 'Unimplemented hurt target %s' % sprite)
@@ -21,7 +20,7 @@ func _setup_pain_flash():
 func _setup_pain_flash_sprite():
 	var spriteProperty = HURT_PROPERTIES.spriteProperty # Colo
 	var sprite = get_node(HURT_PROPERTIES.spritePath)
-	var effect = HURT_PROPERTIES.effects
+	var _effect = HURT_PROPERTIES.effects
 
 	var spritePropertyPath = '{path}:{property}'.format(
 		{'path': String(sprite.get_path()), 'property': spriteProperty}
