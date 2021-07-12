@@ -82,7 +82,6 @@ func set_mood(mood, n, min_change = MOOD_MAX / 16.0):
 	if abs(new_mood - old_mood) < min_change:
 		return
 
-	var debug_mood = new_mood
 	new_mood *= weights[mood]
 	LEVELS[mood] = new_mood
 
@@ -97,10 +96,14 @@ func set_mood(mood, n, min_change = MOOD_MAX / 16.0):
 		emit_signal('MOOD_INCREASED', mood_owner, mood, mood_diff)
 
 
+	# TODO If current dominant mood is the same, do... something
+	#make maxed mood "stickier"
 	if current == mood && old_mood >= MOOD_MAX:
-		var mood_value_change = (MOOD_MAX - old_mood)
+		var mood_value_change = (MOOD_MAX - old_mood) # XXX Err, this is wrong
 		if mood_value_change > 0:
 			emit_signal('MOOD_OVER_MAXED', mood_owner, mood, mood_value_change)
+	else:
+		pass # Else what ???
 
 func on_mood_maxed(m):
 	# TODO Increased to this mood extend timer indefinitely

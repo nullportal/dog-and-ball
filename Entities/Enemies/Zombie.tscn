@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Entities/Enemies/Zombie.gd" type="Script" id=1]
 [ext_resource path="res://Entities/AggroArea.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Entities/Combat.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Entities/Enemies/zombie-Sheet.png" type="Texture" id=7]
+[ext_resource path="res://Entities/Mood.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.34036
@@ -74,6 +75,12 @@ value = 10.0
 [node name="Combat" parent="." instance=ExtResource( 5 )]
 ATTACK_DAMAGE = 5.0
 ATTACK_COOLDOWN = 3.0
+
+[node name="Mood" parent="." instance=ExtResource( 8 )]
+LEVELS = {
+1: 0.0,
+2: 2.0
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle-left = SubResource( 2 )

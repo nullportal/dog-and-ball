@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://Entities/Enemies/EnemySpawnerArea.gd" type="Script" id=1]
+[gd_scene load_steps=2 format=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 256.125
@@ -9,9 +7,6 @@ radius = 256.125
 "EnemySpawners",
 ]]
 collision_layer = 8
-script = ExtResource( 1 )
-SPAWN_INTERVAL = 2
-INSTANCES_PER_SPAWN = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 self_modulate = Color( 0.984314, 0, 0.831373, 1 )

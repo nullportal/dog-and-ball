@@ -137,7 +137,7 @@ func rank_foci(nodes):
 func find_focus(nodes):
 	var focus = rank_foci(nodes)[0].node
 	if typeof(self.focus) != typeof(focus) || self.focus != focus:
-		print('%s focus change to %s' % [self.SLUG, focus.SLUG])
+			pass #print('%s focus change to %s' % [self.SLUG, focus.SLUG])
 
 	return focus
 
@@ -224,13 +224,9 @@ func on_mood_maxed(m):
 		focus_map['zombie']['fear'] *= 2
 		focus_map['zombie']['allure'] *= -1
 		health.HEALTH_REGEN = true
-	print('MOOD MAXED: ',mood.MOOD_NAMES[m])
-	print(enemy_groups)
-	print(focus_map)
 
 func on_mood_maxed_over(m):
 	if m == mood.ANGRY:
-		# FIXME This is not removing ...
 		enemy_groups.remove(enemy_groups.find('Player', 0))
 		focus_map['player']['follow_distance'] *= 4
 		combat.ATTACK_COOLDOWN *= 2
@@ -242,9 +238,6 @@ func on_mood_maxed_over(m):
 		focus_map['zombie']['fear'] /= 2
 		focus_map['zombie']['allure'] *= -1
 		health.HEALTH_REGEN = false
-	print('MOOD OVER: ',mood.MOOD_NAMES[m])
-	print(enemy_groups)
-	print(focus_map)
 
 # NOTE Requires dict with 'sort_key'
 func _sort_nodes(a, b):

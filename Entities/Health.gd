@@ -18,7 +18,6 @@ func _ready():
 
 	self.connect('HEALTH_CHANGED', get_node('/root/Game'), 'health_changed')
 	self.connect('HEALTH_DEPLETED', get_node('/root/Game'), 'health_depleted')
-	print(healthOwner.name, ' initialised with ', self.HEALTH_POINTS, 'HP')
 
 func _process(_delta):
 	if self.HEALTH_REGEN:

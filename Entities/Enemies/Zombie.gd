@@ -28,14 +28,17 @@ func set_knockback(kb):
 	knockbackVelocity = kb
 
 onready var aggroArea = $AggroArea
+onready var noticeArea = aggroArea # FIXME Make its own thing when warranted
 onready var attackArea = $AttackArea
 onready var health = $Health
 onready var combat = $Combat
 onready var healthDisplay = $HealthDisplay
+onready var mood = $Mood
 
 var follow_distances = {
-	'Player': 28,
-	'Dog': 28,
+	'player': 28,
+	'dog': 28,
+	'enemy-spawner': 28,
 }
 
 func _physics_process(_delta):
@@ -44,6 +47,8 @@ func _physics_process(_delta):
 		state = ATTACK
 	else:
 		state = FOLLOW
+
+	mood.set_mood(mood.AFRAID, find_fear())
 
 	match state:
 		FOLLOW:
@@ -55,7 +60,44 @@ func _physics_process(_delta):
 	velocity = velocities['movement']
 	knockbackVelocity = velocities['knockback']
 
+# FIXME Make better
+func find_fear(afraid_peers_limit = 3):
+	if health.HEALTH_POINTS <= 0: return 0
+	if health.HEALTH_POINTS == health.MAX_HEALTH: return 0
+
+	var health_insecurity = (health.MAX_HEALTH / (health.HEALTH_POINTS) * mood.MOOD_MAX / 2)
+
+	# Check for other nearby Zombies who are afraid
+	var afraid_peers = []
+	var nodes = aggroArea.get_overlapping_bodies()
+	for node in nodes:
+		if node == self: continue
+		if node.SLUG == self.SLUG:
+			if node.mood.LEVELS[mood.AFRAID] >= node.mood.MOOD_MAX:
+				afraid_peers.append(node)
+
+	var fear = (health_insecurity + 1) + (afraid_peers.size() * afraid_peers_limit)
+	return fear
+
+func on_mood_maxed(m):
+	if m == mood.AFRAID:
+		MAX_SPEED = MAX_SPEED * 3
+		var spawns = []
+		for node in get_node('/root/Game/World').get_children():
+			if !node.get('SLUG'): continue
+
+			if node.SLUG == 'enemy-spawner':
+				spawns.append(node)
+		if spawns.size() > 0:
+			self.focus = spawns[randi()%spawns.size()] # FIXME Go to closest
+
+func on_mood_maxed_over(m):
+	if m == mood.AFRAID:
+		MAX_SPEED = MAX_SPEED / 3
+
 func find_focus():
+	if mood.get_current() == mood.AFRAID: return self.focus
+
 	var nodes = aggroArea.get_overlapping_bodies()
 	for node in nodes:
 		if node.name == 'Player':
@@ -67,7 +109,7 @@ func find_focus():
 func follow(target):
 	#self.modulate = Color( 100, 100, 100, 1 )
 	if target && state == FOLLOW:
-		var follow_distance = self.follow_distances[target.name]
+		var follow_distance = self.follow_distances[target.SLUG]
 		var distance_to_target = self.position.distance_to(target.position)
 		if distance_to_target <= follow_distance:
 			return

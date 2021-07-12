@@ -7,7 +7,7 @@
 [ext_resource path="res://UI/PlayerCameraArea.tscn" type="PackedScene" id=5]
 [ext_resource path="res://grass.png" type="Texture" id=6]
 [ext_resource path="res://UI/UI.gd" type="Script" id=7]
-[ext_resource path="res://Entities/Enemies/EnemySpawnerArea.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Entities/Enemies/EnemySpawner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://UI/PlayerUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://UI/DogUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Entities/Enemies/EnemyOrchestrator.gd" type="Script" id=11]
@@ -44,26 +44,41 @@ MAX_SPEED = 64
 [node name="PlayerCamera" parent="World/Player/PlayerCameraArea" index="1"]
 visible = true
 
-[node name="EnemySpawnerArea" parent="World" instance=ExtResource( 8 )]
-position = Vector2( -392, 0 )
-
-[node name="EnemySpawnerArea4" parent="World" instance=ExtResource( 8 )]
-position = Vector2( 496, 520 )
-
 [node name="Zombie" parent="World" instance=ExtResource( 12 )]
 position = Vector2( 64, 384 )
 
 [node name="Zombie2" parent="World" instance=ExtResource( 12 )]
-position = Vector2( 88, 376 )
+position = Vector2( 88, 384 )
 
 [node name="Zombie3" parent="World" instance=ExtResource( 12 )]
-position = Vector2( 40, 376 )
+position = Vector2( 56, 544 )
 
 [node name="Zombie4" parent="World" instance=ExtResource( 12 )]
-position = Vector2( 16, 368 )
+position = Vector2( -8, 368 )
 
 [node name="Zombie5" parent="World" instance=ExtResource( 12 )]
-position = Vector2( 112, 368 )
+position = Vector2( 112, 424 )
+
+[node name="Zombie6" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 16, 440 )
+
+[node name="Zombie7" parent="World" instance=ExtResource( 12 )]
+position = Vector2( 152, 472 )
+
+[node name="EnemySpawner" parent="World" instance=ExtResource( 8 )]
+position = Vector2( -256, 0 )
+
+[node name="EnemySpawner2" parent="World" instance=ExtResource( 8 )]
+position = Vector2( 512, 0 )
+
+[node name="EnemySpawner3" parent="World" instance=ExtResource( 8 )]
+position = Vector2( 504, 512 )
+
+[node name="EnemySpawner4" parent="World" instance=ExtResource( 8 )]
+position = Vector2( 704, 264 )
+
+[node name="EnemySpawner5" parent="World" instance=ExtResource( 8 )]
+position = Vector2( -256, 576 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )

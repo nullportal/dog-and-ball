@@ -11,7 +11,7 @@ func _init():
 
 func _ready():
 	#
-	# FIXME Have these object all set their own connections on instantiated
+	# FIXME Have these objects all set their own connections on instantiated
 	#
 
 	player.connect('BALL_THROWN', world, 'ball_thrown')
@@ -53,12 +53,13 @@ func mood_changed(node, mood, old_value, new_value):
 	if node.SLUG == 'dog':
 		ui.get_node('DogUI/MoodDisplay').update_mood(node.mood.MOOD_NAMES[mood], old_value, new_value)
 	else:
-		assert(false, 'No mood simplemented for %s' % node.SLUG)
+		pass # TODO Implement mood visuals for zombie
 
 func mood_maxed(node, mood):
 	if node.mood.get_current() == mood: return
 
-	ui.get_node('DogUI/MoodDisplay').on_mood_maxed(node.mood.MOOD_NAMES[mood])
+	if node.SLUG == 'dog':
+		ui.get_node('DogUI/MoodDisplay').on_mood_maxed(node.mood.MOOD_NAMES[mood])
 	node.mood.on_mood_maxed(mood)
 
 func mood_maxed_decaying(node, mood):
