@@ -60,24 +60,8 @@ func _physics_process(_delta):
 	velocity = velocities['movement']
 	knockbackVelocity = velocities['knockback']
 
-# FIXME Make better
 func find_fear(afraid_peers_limit = 3):
-	if health.HEALTH_POINTS <= 0: return 0
-	if health.HEALTH_POINTS == health.MAX_HEALTH: return 0
-
-	var health_insecurity = (health.MAX_HEALTH / (health.HEALTH_POINTS) * mood.MOOD_MAX / 2)
-
-	# Check for other nearby Zombies who are afraid
-	var afraid_peers = []
-	var nodes = aggroArea.get_overlapping_bodies()
-	for node in nodes:
-		if node == self: continue
-		if node.SLUG == self.SLUG:
-			if node.mood.LEVELS[mood.AFRAID] >= node.mood.MOOD_MAX:
-				afraid_peers.append(node)
-
-	var fear = (health_insecurity + 1) + (afraid_peers.size() * afraid_peers_limit)
-	return fear
+	return 0 # TODO Actually implement when there is a gameplay need
 
 func on_mood_maxed(m):
 	if m == mood.AFRAID:
