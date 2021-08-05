@@ -75,7 +75,7 @@ value = 10.0
 [node name="Combat" parent="." instance=ExtResource( 5 )]
 ATTACK_DAMAGE = 5.0
 ATTACK_COOLDOWN = 3.0
-ATTACK_SPINUP = 4.0
+ATTACK_SPINUP = 3.0
 
 [node name="Mood" parent="." instance=ExtResource( 8 )]
 LEVELS = {

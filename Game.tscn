@@ -45,18 +45,33 @@ visible = true
 
 [node name="EnemySpawner" parent="World" instance=ExtResource( 8 )]
 position = Vector2( -256, 0 )
+MAX_SPAWNS = 5
+SPAWN_INTERVAL = 2
+INSTANCES_PER_SPAWN = 5
 
 [node name="EnemySpawner2" parent="World" instance=ExtResource( 8 )]
 position = Vector2( 512, 0 )
+MAX_SPAWNS = 5
+SPAWN_INTERVAL = 2
+INSTANCES_PER_SPAWN = 5
 
 [node name="EnemySpawner3" parent="World" instance=ExtResource( 8 )]
 position = Vector2( 504, 512 )
+MAX_SPAWNS = 5
+SPAWN_INTERVAL = 2
+INSTANCES_PER_SPAWN = 5
 
 [node name="EnemySpawner4" parent="World" instance=ExtResource( 8 )]
 position = Vector2( 704, 264 )
+MAX_SPAWNS = 5
+SPAWN_INTERVAL = 2
+INSTANCES_PER_SPAWN = 5
 
 [node name="EnemySpawner5" parent="World" instance=ExtResource( 8 )]
 position = Vector2( -256, 576 )
+MAX_SPAWNS = 5
+SPAWN_INTERVAL = 2
+INSTANCES_PER_SPAWN = 5
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
