@@ -27,20 +27,22 @@ func _ready():
 	self.connect('SPAWNER_READY', get_node('/root/Game'), 'on_spawner_ready')
 	self.connect('ENEMY_SPAWNED', get_node('/root/Game'), 'on_enemy_spawned')
 	self.call_deferred('emit_signal', 'SPAWNER_READY', self) # Wait for Game-orthogonal dep
+	self.call_deferred('spawnTimer', 'SPAWNER_READY', self) # Wait for Game-orthogonal dep
 
 func _process(_delta):
 
 	if no_spawns >= MAX_SPAWNS:
-		print('%s is out of spawns!', self.name)
+		print('%s is out of spawns!' % self.name)
 		state = SPAWN_STATE.EMPTY
 		queue_free() # FIXME Something from Orchestrator
 
 	match state:
 		SPAWN_STATE.ACTIVE:
-			if !spawnTimer.time_left:
+			if spawnTimer.time_left <= 0:
 				no_spawns += 1
-				spawnTimer.start(SPAWN_INTERVAL)
 				var enemy = spawn_enemy(get_random_point())
+				spawnTimer.stop()
+				spawnTimer.start(SPAWN_INTERVAL)
 				emit_signal('ENEMY_SPAWNED', enemy)
 		SPAWN_STATE.PAUSED:
 			pass # I Dunno, I guess don't do anything
@@ -49,6 +51,8 @@ func _process(_delta):
 
 func start_spawning():
 	print('%s activated' % self.name)
+	spawnTimer.set_one_shot(true)
+	spawnTimer.start(SPAWN_INTERVAL)
 	state = SPAWN_STATE.ACTIVE
 
 func stop_spawning():
